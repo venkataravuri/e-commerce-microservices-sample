@@ -1,38 +1,61 @@
 package com.nikhu.ecommerce;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
-@Controller
-@RequestMapping("/products")
+@RestController
+@RequestMapping(value = "/products")
 public class ProductCatalogController {
 
-    Product product = new Product("1", "xyz", "xyz", "zys", 01010l);
+    private static final Logger log = LoggerFactory.getLogger(ProductCatalogController.class);
+    List<Product> products;
+    private ObjectMapper jsonMapper = new ObjectMapper();
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     @PostConstruct
     public void init() throws IOException {
-//        ResourceLoader resourceLoader = new Re
-//        Resource resource = ResourceLoader.getResource("classpath:data/products.json");
-//        File productsJsonFile = resource.getFile();
-//
-//        ObjectMapper jsonMapper = new ObjectMapper();
-//
-//        product = jsonMapper.readValue(productsJsonFile, Product.class);
+        //Set pretty printing of json
+        jsonMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        Resource resource = resourceLoader.getResource("classpath:data/products.json");
+        File productsJsonFile = resource.getFile();
+        log.debug("Loading data/products.json from classpath. File path: ", productsJsonFile.getAbsolutePath());
+
+        products = jsonMapper.readValue(productsJsonFile, new TypeReference<List<Product>>() {
+        });
     }
 
+    @RequestMapping("/")
+    public String index() {
+        return "Welcome to Product Catalog API!";
+    }
 
     @RequestMapping(value = "/recommendations", method = RequestMethod.GET)
     public
     @ResponseBody
-    Product productRecommendations() {
-        return product;
+    List<Product> productRecommendations() {
+        log.debug("Recommended products: ", products);
+        return products;
     }
 
+    @RequestMapping("/{_id}")
+    public Product product(@PathVariable("_id") String _id) {
+        return products.stream()
+                .filter(p -> p.get_id().equalsIgnoreCase(_id))
+                .findFirst()
+                .get();
+    }
 }

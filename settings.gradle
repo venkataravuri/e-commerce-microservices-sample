@@ -1,2 +1,3 @@
-include 'service-registry-discovery'
+include 'discovery-service'
+include 'configuration-service'
 include 'product-catalog-api'
