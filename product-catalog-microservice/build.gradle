@@ -13,7 +13,7 @@ buildscript {
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'product-catalog-api'
+    baseName = 'product-catalog-microservice'
     version = '0.0.1-SNAPSHOT'
 }
 

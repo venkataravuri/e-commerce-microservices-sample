@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: product-catalog-microservice
+  profiles:
+    active: local
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8888
+      failFast: true
