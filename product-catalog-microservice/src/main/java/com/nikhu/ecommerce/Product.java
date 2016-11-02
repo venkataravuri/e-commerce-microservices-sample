@@ -2,11 +2,11 @@ package com.nikhu.ecommerce;
 
 public class Product {
 
-    private  String _id;
-    private  String name;
-    private  String lname;
-    private  String category;
-    private  long lastUpdated;
+    private String _id;
+    private String name;
+    private String lname;
+    private String category;
+    private long lastUpdated;
 
     public Product(String _id, String name, String lname, String category, long lastUpdated) {
         this._id = _id;

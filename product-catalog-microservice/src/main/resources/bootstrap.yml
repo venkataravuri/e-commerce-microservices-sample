@@ -5,6 +5,5 @@ spring:
     active: local
   cloud:
     config:
-      enabled: true
-      uri: http://localhost:8888
-      failFast: true
+      uri: http://192.168.99.100:8888
+      fail-fast: true

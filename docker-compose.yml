@@ -1,10 +1,24 @@
-service-registry-discovery:
-    build: ./service-registry-discovery
-    ports:
-     - "8761:8761"
-#product-catalog-api:
-#    build: ./product-catalog-api
-#    ports:
-#     - "2222:2222"
-#    links:
-#     - service-registry-discovery
+configuration-service:
+  build: ./configuration-service
+  ports:
+   - "8888:8888"
+
+discovery-service:
+  build: ./discovery-service
+  ports:
+   - "8761:8761"
+  links:
+   - configuration-service
+
+mongodb:
+  build: ./mongodb
+  ports:
+   - "27017:27017"
+
+#product-catalog-microservice:
+                    #  build: ./product-catalog-microservice
+                    #  ports:
+                    #   - "2222:2222"
+                    #  links:
+                    #   - discovery-service
+                    #   - config-service

@@ -7,10 +7,12 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE"
     }
 }
 
 apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
 
 jar {
     baseName = 'product-catalog-microservice'
@@ -25,6 +27,7 @@ dependencyManagement {
 }
 
 dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-config')
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.springframework.boot:spring-boot-starter-actuator")
