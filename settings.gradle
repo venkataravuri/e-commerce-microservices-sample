@@ -1,0 +1,2 @@
+include 'service-registry-discovery'
+include 'product-catalog-api'

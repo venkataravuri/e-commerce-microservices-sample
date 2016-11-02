@@ -1,0 +1,14 @@
+# Spring properties
+spring:
+  application:
+     name: product-catalog-api
+
+# Discovery Server Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+# HTTP Server
+server:
+  port: 2222   # HTTP (Tomcat) port

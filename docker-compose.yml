@@ -1,0 +1,10 @@
+service-registry-discovery:
+    build: ./service-registry-discovery
+    ports:
+     - "8761:8761"
+    links:
+     - product-catalog-api
+product-catalog-api:
+    build: ./product-catalog-api
+    ports:
+     - "2222:2222"
