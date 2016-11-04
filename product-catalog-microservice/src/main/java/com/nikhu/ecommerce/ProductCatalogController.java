@@ -15,6 +15,8 @@ import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,6 +27,10 @@ public class ProductCatalogController {
 
     @Value("${products.displayCount: 10}")
     private int displayCount;
+
+    @Autowired
+    private ProductRepository productRepository;
+
 
     private ObjectMapper jsonMapper = new ObjectMapper();
     @Autowired
@@ -45,15 +51,27 @@ public class ProductCatalogController {
 
     @RequestMapping("/")
     public String index() {
-        return "Welcome to Product Catalog API! ";
+        return "Welcome to Product Catalog API!";
     }
 
     @RequestMapping(value = "/products/recommendations", method = RequestMethod.GET)
     public
     @ResponseBody
     List<Product> productRecommendations() {
-        log.debug("Recommended products: ", products);
-        return products.stream().limit(displayCount).collect(Collectors.toList());
+
+        CompletableFuture<List<Product>> future = productRepository.findAllProducts();
+        List<Product> resultList = null; //Just for testing if everything is as planned
+        try {
+            resultList = future.get();
+        } catch (InterruptedException e) {
+            log.error("Error while getting data:", e);
+        } catch (ExecutionException e) {
+            log.error("Error while getting data:", e);
+        }
+        log.info("findAllProducts::Count::" + resultList.size());
+        return resultList.stream().collect(Collectors.toList());
+        //log.debug("Recommended products: ", products);
+        //return products.stream().limit(displayCount).collect(Collectors.toList());
     }
 
     @RequestMapping("/products/{_id}")

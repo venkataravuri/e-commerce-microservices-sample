@@ -11,6 +11,10 @@ buildscript {
     }
 }
 
+repositories {
+    maven { url "https://dl.bintray.com/ylemoigne/maven" }
+}
+
 apply plugin: 'spring-boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -31,6 +35,8 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-eureka')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile group: 'org.mongodb', name: 'mongodb-driver-async', version: '3.3.0'
+    compile 'fr.javatic.mongo:mongo-jackson-codec:3.2.2__0.5'
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.cloud:spring-cloud-starter-eureka-server')
 }
