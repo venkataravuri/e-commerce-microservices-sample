@@ -1,4 +1,4 @@
-package com.nikhu.ecommerce;
+package com.nikhu.ecommerce.product;
 
 import com.mongodb.ServerAddress;
 import com.mongodb.async.client.MongoClient;

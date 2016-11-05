@@ -1,4 +1,4 @@
-package com.nikhu.ecommerce;
+package com.nikhu.ecommerce.product;
 
 /**
  * Created by VRavuri on 01-11-2016.
