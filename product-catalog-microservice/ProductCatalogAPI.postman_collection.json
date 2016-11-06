@@ -1,0 +1,79 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ProductCatalogAPI",
+		"_postman_id": "984aa56a-5d96-e46a-65ce-7af7a72227a0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Product Recommendations",
+			"request": {
+				"url": "http://localhost:2222/products/recommendations",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"url": "http://localhost:2222/products",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"_id\" : \"581d772dfed7620ee89936de\",\r\n    \"name\": \"Test\",\r\n    \"lname\": \"Test\",\r\n    \"category\": \"/84700/80009/1282094266/1200003270\",\r\n    \"lastUpdated\": 1400877254787\r\n}"
+				},
+				"description": "Update Product"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Product",
+			"request": {
+				"url": "http://localhost:2222/products",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Women's Kate Ivory Peep-Toe Stiletto Heel\",\r\n    \"lname\": \"women's kate ivory peep-toe stiletto heel\",\r\n    \"category\": \"/84700/80009/1282094266/1200003270\",\r\n    \"lastUpdated\": 1400877254787\r\n}"
+				},
+				"description": "Add Product"
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Product by Id",
+			"request": {
+				"url": "http://localhost:2222/products/581d772dfed7620ee89936de",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": "Find prodcuts by Id"
+			},
+			"response": []
+		}
+	]
+}

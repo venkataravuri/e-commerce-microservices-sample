@@ -1,0 +1,36 @@
+{
+  "name": "ecommerce-app",
+  "version": "1.0.0",
+  "description": "An e-commerce sample application using micro-services architecture with React.js, Spring Boot and more.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node_modules/.bin/babel-node --presets 'react,es2015' src/server.js",
+    "start-dev": "npm run start-dev-hmr",
+    "start-dev-single-page": "node_modules/.bin/http-server src/static",
+    "start-dev-hmr": "node_modules/.bin/webpack-dev-server --progress --inline --hot",
+    "build": "NODE_ENV=production node_modules/.bin/webpack -p"
+  },
+  "keywords": [
+    "micro-services",
+    "Spring",
+    "Boot",
+    "React.js"
+  ],
+  "author": "Venkata S. Ravuri",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
+  },
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
