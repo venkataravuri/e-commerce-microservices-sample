@@ -22,34 +22,19 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 public class ProductCatalogController extends ResponseEntityExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(ProductCatalogController.class);
     List<Product> products;
 
-    @Value("${products.displayCount: 10}")
-    private int displayCount;
-
     @Autowired
     private ProductRepository productRepository;
 
 
-    private ObjectMapper jsonMapper = new ObjectMapper();
-    @Autowired
-    private ResourceLoader resourceLoader;
-
     @PostConstruct
     public void init() throws IOException {
-        //Set pretty printing of json
-        jsonMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        Resource resource = resourceLoader.getResource("classpath:data/products.json");
-        File productsJsonFile = resource.getFile();
-        log.debug("Loading data/products.json from classpath. File path: ", productsJsonFile.getAbsolutePath());
-
-        products = jsonMapper.readValue(productsJsonFile, new TypeReference<List<Product>>() {
-        });
     }
 
     @RequestMapping("/")

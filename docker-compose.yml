@@ -15,10 +15,25 @@ mongodb:
   ports:
    - "27017:27017"
 
-#product-catalog-microservice:
-                    #  build: ./product-catalog-microservice
-                    #  ports:
-                    #   - "2222:2222"
-                    #  links:
-                    #   - discovery-service
-                    #   - config-service
+redis:
+  build: ./redis
+  ports:
+    - "6379:6379"
+
+product-catalog-microservice:
+  build: ./product-catalog-microservice
+  ports:
+   - "2222:2222"
+  links:
+   - discovery-service
+   - configuration-service
+   - mongodb
+
+cart-microservice:
+  build: ./cart-microservice
+  ports:
+   - "4444:4444"
+  links:
+   - discovery-service
+   - configuration-service
+   - redis

@@ -1,0 +1,11 @@
+# Discovery Server Access
+eureka:
+  instance:
+    hostname: 192.168.99.100
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+# HTTP (Tomcat) server port
+server:
+  port: 4444

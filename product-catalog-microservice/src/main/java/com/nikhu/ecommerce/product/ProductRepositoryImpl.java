@@ -79,7 +79,7 @@ public class ProductRepositoryImpl extends AbstractRepository implements Product
     @Override
     public CompletableFuture<String> updateProduct(Product product) {
         CompletableFuture<String> future = new CompletableFuture<>();
-        productCollection.updateOne(eq("_id", new ObjectId(product.get_id())), new Document("$set", new Document().append("name", product.getName()).append("lname", product.getLname()).append("category", product.getCategory()).append("lastUpdated", new Date())),
+        productCollection.updateOne(eq("_id", new ObjectId(product.get_id())), new Document("$set", new Document().append("name", product.getName()).append("description", product.getDescription()).append("price", product.getPrice()).append("currency", product.getCurrency()).append("image", product.getImage())),
                 new SingleResultCallback<UpdateResult>() {
                     @Override
                     public void onResult(final UpdateResult result, final Throwable t) {

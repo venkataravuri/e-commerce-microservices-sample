@@ -11,17 +11,11 @@ public class Product {
     @JsonDeserialize
     private String _id;
     private String name;
-    private String lname;
-    private String category;
-    private long lastUpdated;
-
-    public Product(String _id, String name, String lname, String category, long lastUpdated) {
-        this._id = _id;
-        this.name = name;
-        this.lname = lname;
-        this.category = category;
-        this.lastUpdated = lastUpdated;
-    }
+    private String description;
+    private float price;
+    private String currency;
+    private String image;
+    private String url;
 
     public Product() {
     }
@@ -30,39 +24,55 @@ public class Product {
         return _id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public long getLastUpdated() {
-        return lastUpdated;
-    }
-
     public void set_id(String _id) {
         this._id = _id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setLastUpdated(long lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
