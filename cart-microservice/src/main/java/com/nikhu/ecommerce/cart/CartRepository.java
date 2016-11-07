@@ -5,4 +5,6 @@ package com.nikhu.ecommerce.cart;
  */
 public interface CartRepository {
     Cart getCartById(String id);
+
+    Cart addToCart(String id, CartItem cartItem);
 }

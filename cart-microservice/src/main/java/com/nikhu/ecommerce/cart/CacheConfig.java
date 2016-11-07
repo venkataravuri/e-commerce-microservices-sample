@@ -40,8 +40,8 @@ public class CacheConfig extends CachingConfigurerSupport {
     }
 
     @Bean
-    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory cf) {
-        RedisTemplate<String, String> redisTemplate = new RedisTemplate<String, String>();
+    public RedisTemplate<String, Cart> redisTemplate(RedisConnectionFactory cf) {
+        RedisTemplate<String, Cart> redisTemplate = new RedisTemplate<String, Cart>();
         redisTemplate.setConnectionFactory(cf);
         return redisTemplate;
     }

@@ -10,3 +10,18 @@ export function receiveProductRecommendations(response) {
   });
 }
 
+export function receiveCartResponse(response) {
+  AppDispatcher.handleServerAction({
+    actionType: AppConstants.GET_CART_RESPONSE,
+    response: response,
+  });
+}
+
+export function receiveAddToCartResponse(response) {
+  AppDispatcher.handleServerAction({
+    actionType: AppConstants.ADD_TO_CART_RESPONSE,
+    response: response,
+  });
+}
+
+

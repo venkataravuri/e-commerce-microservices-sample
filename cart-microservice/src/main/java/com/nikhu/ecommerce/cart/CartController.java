@@ -10,10 +10,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -36,8 +32,23 @@ public class CartController extends ResponseEntityExceptionHandler {
     @RequestMapping(value = "/cart/{id}", method = RequestMethod.GET)
     public Cart cart(@PathVariable("id") String id) {
         log.debug("Received request for cart by id: {}", id);
-        log.debug("Should be cached...");
         Cart cart = cartRepository.getCartById(id);
+        log.debug("Cart: {}", cart);
+        return cart;
+    }
+
+    @RequestMapping(value = "/cart/{id}", method = RequestMethod.POST)
+    public Cart cart(@PathVariable("id") String id, @RequestBody CartItem cartItem) {
+        log.debug("Received request to add item to cart by id: {}", id);
+        Cart cart = cartRepository.addToCart(id, cartItem);
+        log.debug("Cart: {}", cart);
+        return cart;
+    }
+
+    @RequestMapping(value = "/cart", method = RequestMethod.POST)
+    public Cart cart(@RequestBody CartItem cartItem) {
+        log.debug("Received request to add item to cart without id.");
+        Cart cart = cartRepository.addToCart(null, cartItem);
         log.debug("Cart: {}", cart);
         return cart;
     }

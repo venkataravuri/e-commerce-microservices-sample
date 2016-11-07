@@ -12,6 +12,7 @@ const CHANGE_EVENT = 'change';
 let _store = {
   products: [],
   cart: {
+    id: null,
     items: [],
     total: 0,
     currency: 'INR'
@@ -53,30 +54,13 @@ AppDispatcher.register((payload) => {
 
   switch (action.actionType) {
 
-  case AppConstants.ADD_TO_CART:
-
-    console.info("Adding product to cart: " + action.product);
-
-    var cartItem = {
-        id: action.product._id,
-        name: action.product.name,
-        price: action.product.price,
-        currency: action.product.currency
-    };
-
-    _store.cart.items.push(cartItem);
-
-    var total = 0;
-    _store.cart.items.forEach(function(item, index) {
-        console.info(item.name + "product added to cart.");
-        total += item.price;
-    });
-    _store.cart.total = total;
-
-    // Add the data defined in the TodoActions
-    // which the View will pass as a payload
+  case AppConstants.ADD_TO_CART_RESPONSE:
+    console.info("Added product to cart on backend: " + action.response.id);
+    _store.cart = action.response;
+        // Add the data defined in the TodoActions
+        // which the View will pass as a payload
     ProductStore.emit(CHANGE_EVENT);
-    break;
+  break;
 
   case AppConstants.GET_PRODUCT_RECOMMENDATIONS_RESPONSE:
 

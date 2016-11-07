@@ -8,7 +8,7 @@ public class Product {
 
     @Id
     @JsonSerialize(using = ObjectIdSerializer.class)
-    @JsonDeserialize
+    //@JsonDeserialize(using = ObjectIdDeSerializer.class)
     private String _id;
     private String name;
     private String description;

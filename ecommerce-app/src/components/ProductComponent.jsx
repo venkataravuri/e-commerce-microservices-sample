@@ -9,7 +9,14 @@ class ProductComponent extends React.Component {
   }
 
   _addToCart() {
-    addToCart(this.props.data);
+    var data = this.props.data
+    var cartItem = {
+      id: data._id,
+      name: data.name,
+      price: data.price,
+      currency: data.currency
+    };
+    addToCart(cartItem);
   }
 
   render() {
