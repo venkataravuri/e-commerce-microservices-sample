@@ -1,0 +1,51 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Cart API",
+		"_postman_id": "f18a6c80-2d02-187c-5322-f5bb12f763bf",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Cart",
+			"request": {
+				"url": "localhost:4444/cart/c5c57640-93d1-4643-8b77-4d825435d645",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"123\",\n\t\"name\": \"Sample\",\n\t\"price\": 20000,\n\t\"currency\": \"INR\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add To Cart",
+			"request": {
+				"url": "localhost:4444/cart/ad4d9c34-5918-43cf-89ed-77c73a0a290d",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"5234\",\n\t\"name\": \"Sample\",\n\t\"price\": 20000,\n\t\"currency\": \"INR\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
