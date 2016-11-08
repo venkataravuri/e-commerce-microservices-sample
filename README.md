@@ -15,6 +15,8 @@ This sample e-commerce application demonstrates how to build an application usin
 * **Service Registration & Discovery Miroservice**
 * ~~API Gateway~~ [_TODO_]
 
+![High-level Block Diagram](https://github.com/venkataravuri/e-commerce-microservices-sample/blob/master/drawings.jpg "High-levle Overview Diagram")
+
 The application is setup as multi-level project where each microservice is arranged as a sub-module under single parent project. It enables to run each microservice individually.
 
 ##Prerequisites
