@@ -1,4 +1,4 @@
-# E-Commerce Sample App using Microservices Architecture
+# Sample E-Commerce App using Microservices Architecture
 **_A fictitious cloud-native e-commerce sample application using micro-services architecture powered by Spring Cloud, Docker, React.JS, MongoDB, Redis and more._**
 
 This sample e-commerce application demonstrates how to build an application using microservices architecture paradigm with Polyglot Languages (Java, JavaScript) & Polyglot Persistance software (MongoDB, Redis). This sample application includes following functional microservices & infrastructure microservices. All of these microservices are independently deployable applications and are organized around business capabilities.
@@ -73,14 +73,30 @@ npm run start-dev
 
 Once above instructions successfully executed, you can view e-commerce application by browsing below URL,
 [http://localhost:3333](http://localhost:3333)
+
 ##Prodcut Catalog Microservice
+#### Overview
+Product Catalog Microservice manages e-commerce application's products. This microservice is built as Spring Boot application with MongoDB as persistance store for product information.
 
-### Overview
-Product Catalog Microservice managed product catalog of e-commerce application. This microservice is built as Spring Boot application with MongoDB as persistance store for product information.
-
+#### REST API
 Product Catalog REST API supports following opertations,
 
 Method | URI | Description | Parameters | Request JSON | Response JSON
 --- | --- | --- | --- | --- | ---
-`GET` | */products/recommendations* | List of recommended products | None | None |
+`GET` | */products/recommendations* | List of recommended products | None | _[TODO]_ |
+`GET` | */products/{id}* | Fetch product information based on id | None | _[TODO]_ |
+`PUT` | */products* | Adds new product | _[TODO]_ | _[TODO]_ |
+`POST` | */products/{id}* | Updates existing product | _[TODO]_ | _[TODO]_ |
+
+##Cart Microservice
+#### Overview
+Cart Microservice provides e-commerce application's shopping cart functionality. This microservice is built as Spring Boot application with Redis as InMemory persistance store for cart information.
+
+#### REST API
+Cart REST API supports following opertations,
+
+Method | URI | Description | Parameters | Request JSON | Response JSON
+--- | --- | --- | --- | --- | ---
+`GET` | */cart/{id}* | Fetches cart by id | None | _[TODO]_ |
+`POST` | */cart/{id}* | Creates or updates cart | _[TODO]_ | _[TODO]_ |
 
