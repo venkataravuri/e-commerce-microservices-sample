@@ -45,6 +45,7 @@ services:
     build: ./product-catalog-microservice
     ports:
      - "9001:9001"
+     - "4444:4444"
     depends_on:
      - discovery-microservice
      - configuration-microservice
