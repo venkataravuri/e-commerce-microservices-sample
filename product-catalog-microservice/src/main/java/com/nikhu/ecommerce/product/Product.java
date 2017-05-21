@@ -1,6 +1,5 @@
 package com.nikhu.ecommerce.product;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import fr.javatic.mongo.jacksonCodec.objectId.Id;
 

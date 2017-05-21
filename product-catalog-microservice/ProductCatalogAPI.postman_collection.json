@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "ProductCatalogAPI",
-		"_postman_id": "984aa56a-5d96-e46a-65ce-7af7a72227a0",
+		"_postman_id": "cc0b6b56-9ae1-00b0-2cee-aefea3dddcdc",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -10,13 +10,10 @@
 		{
 			"name": "Get Product Recommendations",
 			"request": {
-				"url": "http://localhost:2222/products/recommendations",
+				"url": "http://localhost:9000/products/recommendations",
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": ""
 			},
 			"response": []
@@ -24,7 +21,7 @@
 		{
 			"name": "Update Product",
 			"request": {
-				"url": "http://localhost:2222/products",
+				"url": "{{hostname}}:{{port}}/products",
 				"method": "POST",
 				"header": [
 					{
@@ -44,7 +41,7 @@
 		{
 			"name": "Add Product",
 			"request": {
-				"url": "http://localhost:2222/products",
+				"url": "{{hostname}}:{{port}}/products",
 				"method": "PUT",
 				"header": [
 					{
@@ -64,13 +61,10 @@
 		{
 			"name": "Retrieve Product by Id",
 			"request": {
-				"url": "http://localhost:2222/products/581d772dfed7620ee89936de",
+				"url": "{{hostname}}:{{port}}/products/581d772dfed7620ee89936de",
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
-				},
+				"body": {},
 				"description": "Find prodcuts by Id"
 			},
 			"response": []

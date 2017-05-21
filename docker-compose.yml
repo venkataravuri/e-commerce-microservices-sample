@@ -1,39 +1,52 @@
-configuration-service:
-  build: ./configuration-service
-  ports:
-   - "8888:8888"
+version: "3"
+services:
 
-discovery-service:
-  build: ./discovery-service
-  ports:
-   - "8761:8761"
-  links:
-   - configuration-service
+  discovery-microservice:
+    build: ./discovery-microservice
+    ports:
+     - "8001:8001"
 
-mongodb:
-  build: ./mongodb
-  ports:
-   - "27017:27017"
+  configuration-microservice:
+    build: ./configuration-microservice
+    ports:
+     - "8002:8002"
+    depends_on:
+     - discovery-microservice
 
-redis:
-  build: ./redis
-  ports:
-    - "6379:6379"
+  redis:
+    build: ./redis
+    ports:
+      - "6379:6379"
 
-product-catalog-microservice:
-  build: ./product-catalog-microservice
-  ports:
-   - "2222:2222"
-  links:
-   - discovery-service
-   - configuration-service
-   - mongodb
+  mongodb:
+    build: ./mongodb
+    ports:
+     - "27017:27017"
 
-cart-microservice:
-  build: ./cart-microservice
-  ports:
-   - "4444:4444"
-  links:
-   - discovery-service
-   - configuration-service
-   - redis
+  gateway-microservice:
+    build: ./gateway-microservice
+    ports:
+     - "8000:8000"
+    depends_on:
+     - discovery-microservice
+     - configuration-microservice
+
+  cart-microservice:
+    build: ./cart-microservice
+    ports:
+     - "9002:9002"
+    depends_on:
+     - discovery-microservice
+     - configuration-microservice
+     - gateway-microservice
+     - redis
+
+  product-catalog-microservice:
+    build: ./product-catalog-microservice
+    ports:
+     - "9001:9001"
+    depends_on:
+     - discovery-microservice
+     - configuration-microservice
+     - gateway-microservice
+     - mongodb

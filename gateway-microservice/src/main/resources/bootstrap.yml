@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: gateway-microservice
+  profiles:
+    active: local
+server:
+  port: 8000

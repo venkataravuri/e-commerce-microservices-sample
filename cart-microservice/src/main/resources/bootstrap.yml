@@ -5,5 +5,7 @@ spring:
     active: local
   cloud:
     config:
-      uri: http://192.168.99.100:8888
-      fail-fast: true
+      hostname: configuration-microservice
+      port: 8002
+      uri: http://${spring.cloud.config.hostname}:${spring.cloud.config.port}
+      fail-fast: false

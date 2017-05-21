@@ -1,0 +1,16 @@
+eureka:
+  instance:
+    hostname: gateway-microservice
+  client:
+    serviceUrl:
+      defaultZone: http://discovery-microservice:8001/eureka/
+    registryFetchIntervalSeconds: 1
+
+zuul:
+  routes:
+    product-catalog-microservice:
+      path: /products/**
+      stripPrefix: false
+    cart-microservice:
+      path: /cart/**
+      stripPrefix: false

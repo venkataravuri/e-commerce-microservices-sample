@@ -1,5 +1,8 @@
 FROM mvertes/alpine-mongo
 
+RUN apk add --update curl && \
+    rm -rf /var/cache/apk/*
+
 # Modify child mongo to use /data/db2 as dbpath (because /data/db wont persist the build)
 RUN mkdir -p /data/db2 \
     && echo "dbpath = /data/db2" > /etc/mongodb.conf \

@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: discovery-microservice
+  profiles:
+    active: local
+server:
+  port: 8001

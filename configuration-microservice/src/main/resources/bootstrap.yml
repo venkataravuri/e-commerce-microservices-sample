@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: configuration-microservice
+  profiles:
+    active: local
+server:
+  port: 8002
