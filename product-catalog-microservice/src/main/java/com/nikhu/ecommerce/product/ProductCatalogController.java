@@ -19,16 +19,11 @@ import java.util.stream.Collectors;
 @RestController
 public class ProductCatalogController extends ResponseEntityExceptionHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(ProductCatalogController.class);
-    List<Product> products;
+    private static final Logger LOG = LoggerFactory.getLogger(ProductCatalogController.class);
 
     @Autowired
     private ProductRepository productRepository;
 
-
-    @PostConstruct
-    public void init() throws IOException {
-    }
 
     @RequestMapping("/")
     public String index() {
@@ -38,66 +33,23 @@ public class ProductCatalogController extends ResponseEntityExceptionHandler {
     @RequestMapping(value = "/products/recommendations", method = RequestMethod.GET)
     public
     @ResponseBody
-    List<Product> productRecommendations() {
-        CompletableFuture<List<Product>> future = productRepository.findAllProducts();
-        List<Product> products = null; //Just for testing if everything is as planned
-        try {
-            products = future.get();
-        } catch (InterruptedException e) {
-            log.error("Error while getting data:", e);
-        } catch (ExecutionException e) {
-            log.error("Error while getting data:", e);
-        }
-        log.info("findAllProducts::Count::" + products.size());
-        return products.stream().collect(Collectors.toList());
+    CompletableFuture<List<Product>> productRecommendations() {
+        return productRepository.findAllProducts();
     }
 
     @RequestMapping("/products/{_id}")
-    public Product product(@PathVariable("_id") String _id) throws Exception {
-        CompletableFuture<Product> productById = productRepository.findProductById(_id);
-        Product product = null;
-        try {
-            product = productById.get();
-        } catch (InterruptedException e) {
-            log.error("Error while getting data:", e);
-            throw new Exception(e);
-        } catch (ExecutionException e) {
-            log.error("Error while getting data:", e);
-            throw new Exception(e);
-        }
-        return product;
+    public CompletableFuture<Product> product(@PathVariable("_id") String _id) throws Exception {
+        return productRepository.findProductById(_id);
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.PUT)
-    public String addProduct(@RequestBody Product product) throws Exception {
-        CompletableFuture<String> future = productRepository.addProduct(product);
-        String productId = null;
-        try {
-            productId = future.get();
-        } catch (InterruptedException e) {
-            log.error("Error while getting data:", e);
-            throw new Exception(e);
-        } catch (ExecutionException e) {
-            log.error("Error while getting data:", e);
-            throw new Exception(e);
-        }
-        return productId;
+    public CompletableFuture<String> addProduct(@RequestBody Product product) throws Exception {
+        return productRepository.addProduct(product);
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
-    public String updateProduct(@RequestBody Product product) throws Exception {
-        CompletableFuture<String> future = productRepository.updateProduct(product);
-        String productId = null;
-        try {
-            productId = future.get();
-        } catch (InterruptedException e) {
-            log.error("Error while getting data:", e);
-            throw new Exception(e);
-        } catch (ExecutionException e) {
-            log.error("Error while getting data:", e);
-            throw new Exception(e);
-        }
-        return productId;
+    public CompletableFuture<String> updateProduct(@RequestBody Product product) throws Exception {
+        return productRepository.updateProduct(product);
     }
 
     @ExceptionHandler(Exception.class)
