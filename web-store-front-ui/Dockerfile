@@ -28,4 +28,8 @@ RUN npm run build
 
 FROM nginx:1.21.6-alpine
 COPY nginx.conf /etc/nginx/nginx.conf
+# SET default APP_BUILD_DIR path
+ARG APP_BUILD_DIR=/src/app
+# SET default APP_BUILD_DIR path
+ARG APP_SERVE_DIR=/web-store-front
 COPY --from=build-step $APP_BUILD_DIR/build $APP_SERVE_DIR
