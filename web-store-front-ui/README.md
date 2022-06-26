@@ -28,9 +28,15 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Build Docker Image & Push to Repository
-If you are using minikube without 'Docker for Windows/MacOS',
+### Build Docker Image
 
+Tell Docker CLI to talk to minikube's VM.
+
+For MacOS,
+`eval $(minikube docker-env)`
+
+For Windows,
 `& minikube -p minikube docker-env --shell powershell | Invoke-Expression`
 
+Build docker image,
 `docker build -t web-store-front-ui:latest .`
