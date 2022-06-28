@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-deployment
+spec:
+  selector:
+    matchLabels:
+      app: cart-deployment
+  template:
+    metadata:
+      labels:
+        app: cart-deployment
+    spec:
+      containers:
+      - name: cart
+        image: cart:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: SPRING_REDIS_HOST  ## Define the name of the variable
+          valueFrom:
+            configMapKeyRef:
+              name: cart-configmap   ## This must match the name of the configmap
+              key: SPRING_REDIS_HOST  ## The key to fetch
+        - name: SPRING_REDIS_PASSWORD  ## Define the name of the variable
+          valueFrom:
+            configMapKeyRef:
+              name: cart-configmap   ## This must match the name of the configmap
+              key: SPRING_REDIS_PASSWORD  ## The key to fetch
+        - name: SPRING_REDIS_PORT  ## Define the name of the variable
+          valueFrom:
+            configMapKeyRef:
+              name: cart-configmap   ## This must match the name of the configmap
+              key: SPRING_REDIS_PORT  ## The key to fetch
+        ports:
+        - name: http
+          containerPort: 8080
+          protocol: TCP

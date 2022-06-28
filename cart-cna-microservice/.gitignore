@@ -1,0 +1,21 @@
+# Igrone .env for sensitive data
+.env
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+### Gradle ###
+.gradle
+/build/
+/bin/
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# project based files
+.idea/
+*.iml
+*.ipr
+*.iws

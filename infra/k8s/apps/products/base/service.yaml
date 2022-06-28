@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-service
+spec:
+  ports:
+  - name: http
+    port: 5000
+  selector:
+    app: products-deployment

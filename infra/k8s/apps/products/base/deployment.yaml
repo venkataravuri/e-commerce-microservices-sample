@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-deployment
+spec:
+  selector:
+    matchLabels:
+      app: products-deployment
+  template:
+    metadata:
+      labels:
+        app: products-deployment
+    spec:
+      containers:
+      - name: products
+        image: products:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ATLAS_URI  ## Define the name of the variable
+          valueFrom:
+            configMapKeyRef:
+              name: products-configmap   ## This must match the name of the configmap
+              key: ATLAS_URI  ## The key to fetch
+        - name: DATABASE  ## Define the name of the variable
+          valueFrom:
+            configMapKeyRef:
+              name: products-configmap   ## This must match the name of the configmap
+              key: DATABASE  ## The key to fetch
+        ports:
+        - name: http
+          containerPort: 5000
+          protocol: TCP
