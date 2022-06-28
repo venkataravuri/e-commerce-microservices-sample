@@ -19,3 +19,6 @@
 *.iml
 *.ipr
 *.iws
+
+# IDE Files
+.vscode

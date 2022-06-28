@@ -16,11 +16,11 @@ spec:
         image: products:latest
         imagePullPolicy: IfNotPresent
         env:
-        - name: ATLAS_URI  ## Define the name of the variable
+        - name: MONGO_URI  ## Define the name of the variable
           valueFrom:
             configMapKeyRef:
               name: products-configmap   ## This must match the name of the configmap
-              key: ATLAS_URI  ## The key to fetch
+              key: MONGO_URI  ## The key to fetch
         - name: DATABASE  ## Define the name of the variable
           valueFrom:
             configMapKeyRef:

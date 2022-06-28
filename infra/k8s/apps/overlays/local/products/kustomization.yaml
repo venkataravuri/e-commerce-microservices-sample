@@ -1,16 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 namespace: e-commerce
-
 configMapGenerator:
   - name: products-configmap
-    envs: # using files here as we want to create a whole file
-      - .env
+    literals: 
+    - MONGO_URI=mongodb://mongo-root-username:mongo-root-password@mongo-service.shared-services.svc.cluster.local:27017/
+    - DATABASE=e-commerce
 generatorOptions:
   disableNameSuffixHash: true # use a static name
-
-resources:
-  - service.yaml
-  - deployment.yaml
-  - namespace.yaml
+bases:
+- ../../../base/products

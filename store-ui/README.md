@@ -39,4 +39,4 @@ For Windows,
 `& minikube -p minikube docker-env --shell powershell | Invoke-Expression`
 
 Build docker image,
-`docker build -t web-store-front-ui:latest .`
+`docker build -t store-ui:latest .`
