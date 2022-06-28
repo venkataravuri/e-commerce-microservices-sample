@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: es-deployment
+spec:
+  selector:
+    matchLabels:
+      app: es-deployment
+  template:
+    metadata:
+      labels:
+        app: es-deployment
+    spec:
+      containers:
+      - name: es
+        image: elasticsearch:8.2.3
+        ports:
+        - containerPort: 9200
+        - containerPort: 9300
+      initContainers:
+      - name: increase-vm-max-map
+        image: busybox
+        command: ["sysctl", "-w", "vm.max_map_count=262144"]
+        securityContext:
+          privileged: true
