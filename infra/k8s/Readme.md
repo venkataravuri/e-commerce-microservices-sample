@@ -1,37 +1,33 @@
 
 
-# Run locally
+# Standup Application on local machine
+Appliction and dependent services such as databases are deplolyed on local machine using Kuberenetes. 
+
+Minikube is used to standaup Kubernetes cluster on local machine. Below are instructions to start minkube locally,
 
 On Windows,
-
 ```
 minikube start --driver=hyperv
 ```
-
 On MacOS,
 ```
 minikube start- -driver=hyperkit
 ```
 
-Create k8s namespace
+Deploy platform services such as MongoDB, Redis, ElasticSearch to k8s cluster,
+```
+kubectl apply -k platform-services/overlays/local
+```
 
-```
-kubectl create namespace e-commerce
-```
-
-```
-kubectl kustomize cart/overlays/local
-
-```
+Deploy application microservices to Minkube K8s cluster,
 ```
 kubectl apply -k cart/overlays/local
 ```
 
 ```
-kubectl port-forward <cart pod name> 8080:8080 -n e-commerce
+kubectl apply -k shared-services/overlays/local
+kubectl apply -k apps/overlays/local
 ```
 
-```
-kubectl kustomize platform-services/overlays/local
-kubectl apply -k platform-services/overlays/local
-```
+
+minikube service list -n shared-services

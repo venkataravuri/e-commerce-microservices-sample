@@ -6,7 +6,7 @@ RUN apk update && apk upgrade
 # SET default APP_BUILD_DIR path
 ARG APP_BUILD_DIR=/src/app
 # SET default APP_BUILD_DIR path
-ARG APP_SERVE_DIR=/web-store-front
+ARG APP_SERVE_DIR=/store-ui
 
 # Create APP_BUILD_DIR path
 RUN mkdir -p $APP_BUILD_DIR
@@ -31,5 +31,5 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # SET default APP_BUILD_DIR path
 ARG APP_BUILD_DIR=/src/app
 # SET default APP_BUILD_DIR path
-ARG APP_SERVE_DIR=/web-store-front
+ARG APP_SERVE_DIR=/store-ui
 COPY --from=build-step $APP_BUILD_DIR/build $APP_SERVE_DIR

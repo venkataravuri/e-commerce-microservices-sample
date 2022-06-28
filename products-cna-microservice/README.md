@@ -20,8 +20,8 @@ brew install mongodb-database-tools
 
 ```bsh
 export $(cat .env | xargs)
-mongoimport --uri $ATLAS_URI --collection='product-summaries' --file='data/product-summaries.json' --jsonArray
-mongoimport --uri $ATLAS_URI --collection='deals' --file='data/deals.json' --jsonArray
+mongoimport --uri $MONGO_URI --collection='product-summaries' --file='data/product-summaries.json' --jsonArray --authenticationDatabase 'admin' --db='e-commerce'
+mongoimport --uri $MONGO_URI --collection='deals' --file='data/deals.json' --jsonArray --authenticationDatabase 'admin' --db='e-commerce'
 ```
 
 ## Build

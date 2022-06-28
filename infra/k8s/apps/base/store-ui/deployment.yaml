@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: store-ui-deployment
+spec:
+  selector:
+    matchLabels:
+      app: store-ui-deployment
+  template:
+    metadata:
+      labels:
+        app: store-ui-deployment
+    spec:
+      containers:
+      - name: store-ui
+        image: store-ui:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
