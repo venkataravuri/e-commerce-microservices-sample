@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-deployment
+spec:
+  selector:
+    matchLabels:
+      app: users-deployment
+  template:
+    metadata:
+      labels:
+        app: users-deployment
+    spec:
+      containers:
+      - name: users
+        image: users:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 9090
+          protocol: TCP

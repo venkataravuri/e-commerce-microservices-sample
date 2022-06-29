@@ -16,16 +16,11 @@ minikube start- -driver=hyperkit
 
 Deploy platform services such as MongoDB, Redis, ElasticSearch to k8s cluster,
 ```
-kubectl apply -k platform-services/overlays/local
+kubectl apply -k shared-services/overlays/local
 ```
 
 Deploy application microservices to Minkube K8s cluster,
 ```
-kubectl apply -k cart/overlays/local
-```
-
-```
-kubectl apply -k shared-services/overlays/local
 kubectl apply -k apps/overlays/local
 ```
 

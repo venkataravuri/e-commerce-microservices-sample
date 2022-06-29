@@ -20,3 +20,11 @@ AWS deployment is done through Terraform scripts.
 
 ## Appliction Folder Structure
 
+
+Tell Docker CLI to talk to minikube's VM.
+
+For MacOS,
+`eval $(minikube docker-env)`
+
+For Windows,
+`& minikube -p minikube docker-env --shell powershell | Invoke-Expression`
