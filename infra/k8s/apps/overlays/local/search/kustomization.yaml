@@ -2,13 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: e-commerce
 configMapGenerator:
-  - name: cart-configmap
+  - name: search-configmap
     literals: 
-    - SPRING_REDIS_HOST=redis-service.shared-services.svc.cluster.local
-    - SPRING_REDIS_PORT=6379
-    - SPRING_REDIS_PASSWORD=
+    - ELASTIC_URL=http://elastic-service.shared-services.svc.cluster.local:9200/
 generatorOptions:
   disableNameSuffixHash: true # use a static name
-
 bases:
-- ../../../base/cart
+- ../../../base/search

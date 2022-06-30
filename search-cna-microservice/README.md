@@ -11,17 +11,10 @@ For MacOS
 ```bsh
 brew install node
 ```
-### Popuate MonoDB with data
 
-```bsh
-brew tap mongodb/brew
-brew install mongodb-database-tools
-```
 
 ```bsh
 source .env.local
-mongoimport --uri $MONGO_URI --collection='product-summaries' --file='data/product-summaries.json' --jsonArray --authenticationDatabase 'admin' --db='e-commerce'
-mongoimport --uri $MONGO_URI --collection='deals' --file='data/deals.json' --jsonArray --authenticationDatabase 'admin' --db='e-commerce'
 ```
 
 ## Build
@@ -45,4 +38,4 @@ For Windows,
 `& minikube -p minikube docker-env --shell powershell | Invoke-Expression`
 
 Build docker image,
-`docker build -t products:latest .`
+`docker build -t search:latest .`

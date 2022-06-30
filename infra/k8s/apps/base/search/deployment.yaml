@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-deployment
+spec:
+  selector:
+    matchLabels:
+      app: search-deployment
+  template:
+    metadata:
+      labels:
+        app: search-deployment
+    spec:
+      containers:
+      - name: search
+        image: search:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ELASTIC_URL  ## Define the name of the variable
+          valueFrom:
+            configMapKeyRef:
+              name: search-configmap   ## This must match the name of the configmap
+              key: ELASTIC_URL  ## The key to fetch
+        ports:
+        - name: http
+          containerPort: 4000
+          protocol: TCP

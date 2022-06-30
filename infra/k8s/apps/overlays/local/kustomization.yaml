@@ -6,3 +6,4 @@ bases:
 - products
 - store-ui
 - users
+- search

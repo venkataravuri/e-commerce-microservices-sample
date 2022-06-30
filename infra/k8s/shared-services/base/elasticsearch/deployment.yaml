@@ -17,6 +17,12 @@ spec:
         ports:
         - containerPort: 9200
         - containerPort: 9300
+        env:
+        - name: xpack.security.enabled
+          value: "false"
+        - name: discovery.type
+          value: "single-node"
+
       initContainers:
       - name: increase-vm-max-map
         image: busybox
