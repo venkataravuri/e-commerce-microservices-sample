@@ -24,6 +24,7 @@ Architecture         |  Application UI/UX
 | [Store UI](store-ui/README.md) | A web UI frontend for e-commerce store that uses above Microservices | A web app built using React, Material UI using TypeScript/JavaScript|
 
 ## Folder Structure
+```bash
 .
 ├── store-ui                    # Web Store Ract App with Material UI
 │   └── ...
@@ -39,6 +40,7 @@ Architecture         |  Application UI/UX
     │    └── shared-services    # Databases, ElasticSeach related k8s yaml files.
     ├── terraform               # Terraform scripts to deploy to AWS
     └── performance             # Performance and load testing scripts
+```
 
 ## Getting Started
 
