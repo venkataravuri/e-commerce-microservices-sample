@@ -71,7 +71,7 @@ public class CartRedisOperationsTest {
     }
 
     private Cart getSampleCart() {
-        CartItem cartItem = new CartItem("cart-1-1", "Nike Shoes", 145.0f, "USD");
+        CartItem cartItem = new CartItem("cart-1-1", "sku1", "Nike Shoes", 1, 145.0f, "USD");
         ArrayList<CartItem> cartItems = new ArrayList<CartItem>();
         cartItems.add(cartItem);
         return new Cart("cart-1", cartItems, 145.0f, "USD");

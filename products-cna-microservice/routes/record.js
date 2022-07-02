@@ -25,4 +25,20 @@ recordRoutes.route('/deals').get(async function (_req, res) {
     });
 });
 
+// This section will help you get a list of all the records.
+recordRoutes.route('/products/sku/:id').get(async function (_req, res) {
+  const skuID = _req.params.id
+  const dbConnect = dbo.getDb();
+
+  dbConnect
+    .collection('products')
+    .findOne({'variants.sku': skuID}, (function (err, result) {
+      if (err) {
+        res.status(400).send('Error fetching deals!');
+      } else {
+        res.json(result);
+      }
+    }))
+});
+
 module.exports = recordRoutes;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled, alpha, useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,9 +12,13 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import ThemeContext from "../layout/ThemeContext";
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { useNavigate } from "react-router-dom";
+import Link from '@mui/material/Link';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -57,6 +61,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -101,6 +108,23 @@ export default function PrimarySearchAppBar() {
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
+  );
+
+  const theme = useTheme();
+  const colorMode = React.useContext(ThemeContext);
+
+  const renderThemeToggle = (
+    <Box
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      Switch theme
+      <IconButton sx={{ ml: 0 }} onClick={colorMode.toggleColorMode} color="inherit">
+        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
+    </Box>
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -159,30 +183,30 @@ export default function PrimarySearchAppBar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
+
           </IconButton>
-          <Typography
-            variant="h5"
+          <Link href="/" variant="h5" underline="none"
             noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            e-commerce store
-          </Typography>
+            sx={{ color: 'white', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <img src="logo.png" width="32" height="32" alt="logo" />
+            &nbsp;e-commerce store
+          </Link>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ width: '45%' }}>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search for products ..."
-              inputProps={{ 'aria-label': 'search'}}
-            />
-          </Search>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search for products ..."
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
+          {renderThemeToggle}
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <IconButton
+            <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -219,6 +243,6 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Box>
+    </Box >
   );
 }

@@ -1,5 +1,7 @@
 package com.ecommerce.cart.controller;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.cart.model.Cart;
+import com.ecommerce.cart.model.CartItem;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -39,20 +42,29 @@ public class CartController {
 
     @GetMapping("/cart")
     public Flux<Cart> list() {
-        return redisTemplate.keys("cart*")
+        return redisTemplate.keys("*")
                 .flatMap(cartOps::get);
     }
 
-    @GetMapping("/cart/{id}")
-    public Mono<Cart> findById(@PathVariable String id) {
-        return cartOps.get(id);
+    @GetMapping("/cart/{customerId}")
+    public Mono<Cart> findById(@PathVariable String customerId) {
+        return cartOps.get(customerId);
     }
 
     @PostMapping("/cart")
     Mono<Void> create(@RequestBody Mono<Cart> cart) {
         return cart.doOnNext(c -> {
             LOG.info("Adding cart to Redis: {}", c);
-            cartOps.set(c.getId(), c).subscribe();
+            float total = 0;
+            if (c.getCustomerId() == null) {
+                LOG.error("Customer Id is missing.");
+                return;
+            }
+            for (CartItem item : c.getItems()) {
+                total += item.getPrice() * item.getQuantity();
+            }
+            c.setTotal(total);
+            cartOps.set(c.getCustomerId(), c).subscribe();
         }).then();
     }
 }

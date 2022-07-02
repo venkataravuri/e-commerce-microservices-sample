@@ -1,10 +1,10 @@
-[
+exports.deals = [
     {
-        "_id": "d-9241",
+        "dealId": "d-9241",
         "productId": "301671",
-        "variant.sku": "sku2441",
+        "variantSku": "sku2441",
         "department": "Shoes",
-        "thumbnail": "?",
+        "thumbnail": "../assets/images/deals/shoes.jpg",
         "image": "?",
         "title": "Evening Platform Pumps",
         "description": "Those evening platform pumps the perfect finishing touches on your most glamourous night-on-the-the-town outfit",
@@ -15,9 +15,9 @@
         "lastUpdated": "2022-10-02T01:11:18.965Z"
     },
     {
-        "_id": "d-9242",
+        "dealId": "d-9242",
         "productId": "301672",
-        "variant.sku": "sku2442",
+        "variantSku": "sku2442",
         "department": "Fashion",
         "thumbnail": "../assets/images/deals/kurtha.webp",
         "image": "?",
@@ -30,9 +30,9 @@
         "lastUpdated": "2022-10-02T01:11:18.965Z"
     },
     {
-        "_id": "d-9243",
+        "dealId": "d-9243",
         "productId": "301673",
-        "variant.sku": "sku2443",
+        "variantSku": "sku2443",
         "department": "Shoes",
         "thumbnail": "../assets/images/deals/slippers.webp",
         "image": "?",
@@ -45,9 +45,9 @@
         "lastUpdated": "2022-10-02T01:11:18.965Z"
     },
     {
-        "_id": "d-9244",
+        "dealId": "d-9244",
         "productId": "301674",
-        "variant.sku": "sku2444",
+        "variantSku": "sku2444",
         "department": "Shoes",
         "thumbnail": "../assets/images/deals/oven.webp",
         "image": "?",
@@ -60,9 +60,9 @@
         "lastUpdated": "2022-10-02T01:11:18.965Z"
     },
     {
-        "_id": "d-9245",
+        "dealId": "d-9245",
         "productId": "301675",
-        "variant.sku": "sku2445",
+        "variantSku": "sku2445",
         "department": "Mobiles",
         "thumbnail": "../assets/images/deals/mobile.webp",
         "image": "?",
@@ -75,9 +75,9 @@
         "lastUpdated": "2022-10-02T01:11:18.965Z"
     },
     {
-        "_id": "d-9246",
+        "dealId": "d-9246",
         "productId": "301676",
-        "variant.sku": "sku2446",
+        "variantSku": "sku2446",
         "department": "Stationary",
         "thumbnail": "../assets/images/deals/pens.webp",
         "image": "?",

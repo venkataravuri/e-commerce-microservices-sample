@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class Cart {
-
-    private String id;
+    private String customerId;
     private List<CartItem> items;
     private float total;
     private String currency;

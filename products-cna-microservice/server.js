@@ -1,5 +1,7 @@
 // Loads the configuration from config.env to process.env
 require('dotenv').config({ path: './.env' });
+const deals = require('./data/deals')
+const products = require('./data/products')
 
 const express = require('express');
 const cors = require('cors');
@@ -19,6 +21,35 @@ app.use(function (err, _req, res) {
   res.status(500).send('Something broke!');
 });
 
+loadData = () => {
+  const dbConnect = dbo.getDb();
+
+  ['deals', 'products'].map((collection) => {
+    dbConnect.collection(collection, function (err, collection) {
+      // handle the error if any
+      if (err) throw err;
+      // delete the mongodb collection
+      collection.deleteMany({}, function (err, result) {
+        // handle the error if any
+        if (err) throw err;
+        console.log("Collection is deleted! ", result);
+      });
+    })
+  });
+  [{collection: 'deals', records: deals.deals}, { collection: 'products', records: products.products}].map((data) => {
+    dbConnect
+    .collection(data.collection)
+    .insertMany(data.records, (err, result) => {
+      if (err) {
+        console.log('Error loading data')
+        throw err
+      } else {
+        console.log('Data loaded ', result)
+      }
+    });
+  });
+}
+
 // perform a database connection when the server starts
 dbo.connectToServer(function (err) {
   if (err) {
@@ -29,5 +60,6 @@ dbo.connectToServer(function (err) {
   // start the Express server
   app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
+    loadData()
   });
 });

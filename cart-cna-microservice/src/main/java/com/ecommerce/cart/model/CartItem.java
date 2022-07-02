@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CartItem  {
-    private String id;
-    private String name;
+    private String productId;
+    private String sku;
+    private String title;
+    private int quantity;
     private float price;
     private String currency;
 }

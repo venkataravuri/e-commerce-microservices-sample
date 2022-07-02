@@ -8,7 +8,7 @@ function Footer() {
             <Box sx={{
                 bgcolor: 'background.default', color: 'text.secondary', fontSize: 16, p: 1
             }}>
-                <Grid container sx={{mb: 1, p: 1}}>
+                <Grid container sx={{ mb: 1, p: 1 }}>
                     <Grid item xs={8}
                         spacing={2}
                         container
@@ -28,9 +28,9 @@ function Footer() {
                             Privacy
                         </Grid>
                     </Grid>
-                    <Grid container xs={4} justifyContent="flex-end"
-                        alignItems="center">Copyright © 2022
-                    </Grid>
+                        <Grid item xs={4} justifyContent="flex-end"
+                            alignItems="center">Copyright © 2022
+                        </Grid>
                 </Grid>
             </Box>
         </footer >
