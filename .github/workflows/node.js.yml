@@ -13,6 +13,10 @@ on:
     paths:
     - products-cna-service
 
+defaults:
+ run:
+  working-directory: ./products-cna-microservice
+
 jobs:
   build:
 
