@@ -15,6 +15,9 @@ defaults:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: ./products-cna-microservice
 
     runs-on: ubuntu-latest
 
@@ -31,5 +34,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
+      working-directory: ./products-cna-microservice
     - run: npm run build --if-present
+      working-directory: ./products-cna-microservice
     - run: npm test
+      working-directory: ./products-cna-microservice
