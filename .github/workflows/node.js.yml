@@ -9,10 +9,6 @@ on:
   pull_request:
     branches: [ "master" ]
 
-defaults:
-  run:
-    working-directory: ./products-cna-microservice
-
 jobs:
   build:
     defaults:
