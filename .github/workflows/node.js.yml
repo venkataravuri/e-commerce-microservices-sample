@@ -28,8 +28,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: cd to configured directory
-      run: cd  products-cna-microservice
+    - name: pwd
+      run: pwd
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
