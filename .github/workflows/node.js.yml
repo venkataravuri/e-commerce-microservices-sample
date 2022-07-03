@@ -6,12 +6,8 @@ name: Node.js CI
 on:
   push:
     branches: [ "master" ]
-    paths:
-    - products-cna-service
   pull_request:
     branches: [ "master" ]
-    paths:
-    - products-cna-service
 
 defaults:
  run:
