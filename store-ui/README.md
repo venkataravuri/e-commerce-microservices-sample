@@ -2,7 +2,7 @@
 A web front end for e-commerce application. Built using React, MUI.
 
 ## Prerequisites
-- Node > 18
+- Node > 18 - ```choco install nodejs --version@18```
 - Git
 
 ## Install Dependencies
