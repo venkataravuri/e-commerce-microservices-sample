@@ -12,6 +12,7 @@ A web front end for e-commerce application. Built using React, MUI.
   AppBar
   deals
   Layout
+
 ## Prerequisites
 - Node > 18 - ```choco install nodejs --version@18```
 - Git
