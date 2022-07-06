@@ -4,14 +4,21 @@ A web front end for e-commerce application. Built using React, MUI.
 # Web Store Front UI consists of following components:-
 - API
 - components
-- pages
-- utils
 - In components: these are again divided into following.
  
   ```  
   AppBar
   deals
   Layout
+- pages
+- In Pages: these are again divided into following.
+ 
+  ```  
+  Cart
+  Home
+  Product
+- utils
+
 ---
 ## Prerequisites
 - Node > 18 - ```choco install nodejs --version@18```
