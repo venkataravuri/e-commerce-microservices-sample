@@ -1,6 +1,17 @@
 # Web Store Front UI
 A web front end for e-commerce application. Built using React, MUI.
 
+# Web Store Front UI consists of following components:-
+- API
+- components
+- pages
+- utils
+- In components: these are again divided into following.
+ 
+  ```  
+  AppBar
+  deals
+  Layout
 ## Prerequisites
 - Node > 18 - ```choco install nodejs --version@18```
 - Git
@@ -15,6 +26,7 @@ Install required node modules.
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
 
 ### Run Tests
 `npm test`
@@ -40,3 +52,7 @@ For Windows,
 
 Build docker image,
 `docker build -t store-ui:latest .`
+
+```javascript```
+var s = "JavaScript syntax highlighting";
+alert(s);
