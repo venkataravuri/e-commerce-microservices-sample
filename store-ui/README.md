@@ -12,48 +12,51 @@ A web front end for e-commerce application. Built using React, MUI.
   AppBar
   deals
   Layout
-
+---
 ## Prerequisites
 - Node > 18 - ```choco install nodejs --version@18```
+- [Click Here](https://nodejs.org/en/download/) to download NodeJs throuh GUI
 - Git
-
+***
 ## Install Dependencies
 Install required node modules.
 
 `npm install`
-
-### Run App Locally
+___
+## Run App Locally
 `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-
-### Run Tests
+___
+## Run Tests
 `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### Production Build
+***
+## Production Build
  `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
-
-### Build Docker Image
+***
+## Build Docker Image
 
 Tell Docker CLI to talk to minikube's VM.
 
-For MacOS,
+### For MacOS,
 `eval $(minikube docker-env)`
 
-For Windows,
+### For Windows,
 `& minikube -p minikube docker-env --shell powershell | Invoke-Expression`
 
-Build docker image,
+### Build docker image,
 `docker build -t store-ui:latest .`
 
 ```javascript```
+
 var s = "JavaScript syntax highlighting";
-alert(s);
+
+        alert(s);
