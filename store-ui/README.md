@@ -46,13 +46,13 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 Tell Docker CLI to talk to minikube's VM.
 
-### For MacOS,
+## For MacOS,
 `eval $(minikube docker-env)`
 
-### For Windows,
+## For Windows,
 `& minikube -p minikube docker-env --shell powershell | Invoke-Expression`
 
-### Build docker image,
+## Build docker image,
 `docker build -t store-ui:latest .`
 
 ```javascript```
