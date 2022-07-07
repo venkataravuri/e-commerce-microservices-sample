@@ -76,3 +76,38 @@ resource "aws_route_table_association" "private-crt-private-subnet-1" {
   subnet_id      = var.private_subnet_1_id.id
   route_table_id = aws_route_table.private-crt.id
 }
+
+resource "aws_security_group" "bastionHostSG" {
+  vpc_id = var.vpc_id
+  depends_on = [aws_route_table.public-crt]
+
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name =  "Bastion Host"
+  }
+}
+
+resource "aws_instance" "bastionHost" {
+  ami = "ami-0573b70afecda915d"
+  instance_type = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.bastionHostSG.id]
+  subnet_id = var.public_subnet_1_id.id
+  depends_on = [aws_security_group.bastionHostSG]
+
+  tags = {
+    Name = "Jumper"
+  }
+}

@@ -37,3 +37,15 @@ module "eks" {
   public_subnet_1_id  = module.vpc.public_subnet_1_id
   private_subnet_1_id = module.vpc.private_subnet_1_id
 }
+
+module "albs" {
+  source               = "./modules/networking/albs"
+  project              = var.project
+  region = var.region
+  vpc_id               = module.vpc.vpc_id
+  eks_cluster_id       = module.eks.eks_cluster_id
+  eks_cluster_endpoint = module.eks.eks_cluster_endpoint
+  eks_cluster_ca       = module.eks.eks_cluster_ca
+  eks_provider_arn     = module.eks.eks_provider_arn
+  token                = module.eks.token
+}

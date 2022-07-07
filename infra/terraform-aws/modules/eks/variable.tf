@@ -12,6 +12,7 @@ variable "public_subnet_1_id" {
 variable "private_subnet_1_id" {
 }
 
-variable "instance_type" {
-    default = "default"
+variable "instance_types" {
+    type = list(string)
+    default = ["t4g.small"]
 }
