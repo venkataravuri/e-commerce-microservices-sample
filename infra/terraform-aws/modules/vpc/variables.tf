@@ -2,15 +2,28 @@
 # Declare the VPC details
 #-------------------------------------------
 variable "availability_zones" {
-  description = "Availability zones for multi-zone deployment"
-  type        = list(string)
+  type = list(string)
 }
 
 variable "vpc_cidr" {
-  description = "VPC CIDR block"
-  type        = string
+  type = string
 }
 
 variable "project" {
   type = string
+}
+
+variable "environment" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
+variable "public_subnets_cidr" {
+  type = list(string)
+}
+
+variable "private_subnets_cidr" {
+  type = list(string)
 }

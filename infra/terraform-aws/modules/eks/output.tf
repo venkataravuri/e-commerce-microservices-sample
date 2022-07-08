@@ -1,12 +1,12 @@
 output "eks_cluster_id" {
-  value = module.eks.cluster_id
+  value = aws_eks_cluster.main.id
 }
 output "eks_cluster_endpoint" {
-  value = module.eks.cluster_endpoint
+  value = aws_eks_cluster.main.endpoint
 }
 output "eks_cluster_ca" {
-  value = module.eks.cluster_certificate_authority_data
+  value = aws_eks_cluster.main.certificate_authority.0.data
 }
 output "eks_provider_arn" {
-  value = module.eks.oidc_provider_arn
+  value = aws_eks_cluster.main.arn
 }

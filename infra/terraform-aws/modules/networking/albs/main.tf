@@ -46,10 +46,11 @@ resource "kubernetes_service_account" "service-account" {
       "app.kubernetes.io/component" = "controller"
     }
     annotations = {
-      //"eks.amazonaws.com/role-arn"               = module.lb_role.arn
+      #"eks.amazonaws.com/role-arn"               = "${module.lb_role.arn}"
       "eks.amazonaws.com/sts-regional-endpoints" = "true"
     }
   }
+  depends_on = [module.lb_role]
 }
 
 resource "helm_release" "lb" {
