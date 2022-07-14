@@ -34,13 +34,15 @@ module "networking" {
   private_subnets    = module.vpc.private_subnets
 }
 
-# module "eks" {
-#   source              = "./modules/eks"
-#   project             = var.project
-#   vpc_id              = module.vpc.vpc_id
-#   public_subnet_1_id  = module.vpc.public_subnet_1_id
-#   private_subnet_1_id = module.vpc.private_subnet_1_id
-# }
+module "eks-opt-2" {
+  source              = "./modules/eks-opt-2"
+  project            = var.project
+  environment        = var.environment
+  vpc_id             = module.vpc.vpc_id
+  availability_zones = local.availability_zones
+  public_subnets     = module.vpc.public_subnets
+  private_subnets    = module.vpc.private_subnets
+}
 
 # module "albs" {
 #   source               = "./modules/networking/albs"

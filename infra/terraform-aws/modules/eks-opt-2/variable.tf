@@ -2,14 +2,21 @@ variable "project" {
   type = string
 }
 
+variable "environment" {
+  type = string
+}
+
 variable "vpc_id" {
   type = string
 }
 
-variable "public_subnet_1_id" {
+variable "availability_zones" {
 }
 
-variable "private_subnet_1_id" {
+variable "public_subnets" {
+}
+
+variable "private_subnets" {
 }
 
 variable "instance_types" {
