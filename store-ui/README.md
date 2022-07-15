@@ -58,12 +58,8 @@ Tell Docker CLI to talk to minikube's VM.
 ___
 ## For Windows,
 `& minikube -p minikube docker-env --shell powershell | Invoke-Expression`
-
+***
 ## Build docker image,
 `docker build -t store-ui:latest .`
 
-```javascript```
 
-var s = "JavaScript syntax highlighting";
-
-        alert(s);
