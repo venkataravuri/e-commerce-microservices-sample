@@ -7,11 +7,11 @@ Install OpenJDK by executing following instructions,
 
 For Windows
 ```bsh
-choco install openjdk@18
+choco install openjdk
 ```
 For MacOS
 ```bsh
-brew install openjdk@18
+brew install openjdk
 ```
 
 ## Build
