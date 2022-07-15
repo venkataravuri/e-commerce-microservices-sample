@@ -55,7 +55,7 @@ Tell Docker CLI to talk to minikube's VM.
 
 ## For MacOS,
 `eval $(minikube docker-env)`
-
+___
 ## For Windows,
 `& minikube -p minikube docker-env --shell powershell | Invoke-Expression`
 
