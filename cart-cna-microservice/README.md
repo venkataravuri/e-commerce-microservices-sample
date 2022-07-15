@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-### Java 17
+### Java 18
 Install OpenJDK by executing following instructions,
 
 For Windows
