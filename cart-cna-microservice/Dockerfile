@@ -1,5 +1,5 @@
 
-FROM openjdk:17-alpine
+FROM openjdk:minikube
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
 ARG JAR_FILE=build/libs/cart-1.0.0.jar
