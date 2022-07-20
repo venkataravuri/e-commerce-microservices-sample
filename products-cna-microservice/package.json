@@ -19,7 +19,7 @@
     "eslint": "^8.0.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.2.3",
-    "nodemon": "^2.0.12",
+    "nodemon": "^2.0.19",
     "prettier": "^2.4.1"
   },
   "husky": {
@@ -32,5 +32,8 @@
       "prettier --single-quote --write",
       "eslint --fix"
     ]
-  }
+  },
+  "description": "For Windows\r ```bsh\r choco install node\r ```\r For MacOS\r ```bsh\r brew install node\r ```\r ### Popuate MonoDB with data",
+  "author": "",
+  "license": "ISC"
 }
