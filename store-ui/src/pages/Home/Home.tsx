@@ -21,7 +21,7 @@ function Home() {
         <Grid item sx={{ pl: 2, pr: 2, width: "100%" }}>
           <Paper elevation={3} sx={{ pl: 2, pb: 2 }}>
             <Typography variant="h6" sx={{ p: 1, color: "text.primary" }}>
-              Shop by Category
+              상품 카테고리
             </Typography>
             <Grid container spacing={2}>
               <>
