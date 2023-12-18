@@ -30,3 +30,6 @@ class UserDAL():
         await self.db_session.execute(q)
         updated_user = await self.get_user(user_id)
         return updated_user
+    async def get_user_by_email(self, email: str) -> UserOut:
+        q = await self.db_session.execute(select(User).where(User.email == email))
+        return UserOut.from_orm(q.scalar())
