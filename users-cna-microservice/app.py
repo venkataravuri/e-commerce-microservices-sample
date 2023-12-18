@@ -34,7 +34,7 @@ async def create_user(user: UserIn):
         # Return the created user
         return db_user
 
-async def create_initial_data():
+async def startup():
     # create initial data
     async with async_session() as session:
         session.add_all([
