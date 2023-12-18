@@ -9,7 +9,6 @@ from db.models.user import User
 app = FastAPI()
 app.include_router(user_router.router)
 
-#아래 코드를 지금에 맞게 수정해줘
 
 @app.on_event("startup")
 async def startup():
