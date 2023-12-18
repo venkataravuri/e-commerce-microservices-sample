@@ -6,12 +6,19 @@ from dependencies import get_user_dal
 
 router = APIRouter()
 
+@router.get("/")
+async def root():
+    return {"message": "Hello World"}
+
 @router.post("/users", response_model=UserOut)
 async def create_user(user: UserIn, user_dal: UserDAL = Depends(get_user_dal)):
     db_user = await user_dal.get_user_by_email(user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
-    return await user_dal.create_user(user)
+    
+    print("🙂🙂🙂🙂🙂🙂🙂🙂🙂 name: " + UserIn.name)
+    return await user_dal.create_user(UserIn.name, UserIn.email, UserIn.mobile)
+
 
 @router.put("/users/{user_id}", response_model=UserOut)
 async def update_user(user_id: int, user: UserIn, user_dal: UserDAL = Depends(get_user_dal)):
