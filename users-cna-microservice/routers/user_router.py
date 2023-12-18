@@ -12,12 +12,13 @@ async def root():
 
 @router.post("/users", response_model=UserOut)
 async def create_user(user: UserIn, user_dal: UserDAL = Depends(get_user_dal)):
+    print("@✅@✅@✅@✅@✅@✅@✅@✅@✅@✅@✅@✅@✅@✅")
     db_user = await user_dal.get_user_by_email(user.email)
+    print("@🔥@🔥@🔥@🔥@🔥@🔥@🔥@🔥@🔥@🔥@🔥@🔥@🔥")
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     
-    print("🙂🙂🙂🙂🙂🙂🙂🙂🙂 name: " + UserIn.name)
-    return await user_dal.create_user(UserIn.name, UserIn.email, UserIn.mobile)
+    return await user_dal.create_user(user.name, user.email, user.mobile)
 
 
 @router.put("/users/{user_id}", response_model=UserOut)

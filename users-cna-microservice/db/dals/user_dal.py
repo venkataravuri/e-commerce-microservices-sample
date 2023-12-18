@@ -11,6 +11,7 @@ class UserDAL():
         self.db_session = db_session
 
     async def create_user(self, user: UserIn) -> UserOut:
+        print("@✅✅✅✅✅✅✅✅✅✅")
         new_user = User(name=user.name, email=user.email, mobile=user.mobile)
         self.db_session.add(new_user)
         await self.db_session.flush()
