@@ -18,22 +18,22 @@ class UserDAL():
         return UserOut.from_orm(new_user)
 
     async def get_all_users(self) -> List[UserOut]:
-        q = await self.db_session.execute(select(User).order_by(User.id))
-        return [UserOut.from_orm(user) for user in q.scalars().all()]
+        queryResult = await self.db_session.execute(select(User).order_by(User.id))
+        return [UserOut.from_orm(user) for user in queryResult.scalars().all()]
 
     async def get_user(self, user_id: str) -> UserOut:
-        q = await self.db_session.execute(select(User).where(User.id == user_id))
-        return UserOut.from_orm(q.scalar())
+        queryResult = await self.db_session.execute(select(User).where(User.id == user_id))
+        return UserOut.from_orm(queryResult.scalar())
 
     async def update_user(self, user_id: int, user: UserIn) -> UserOut:
-        q = update(User).where(User.id == user_id).values(name=user.name, email=user.email, mobile=user.mobile)
-        q.execution_options(synchronize_session="fetch")
-        await self.db_session.execute(q)
+        queryResult = update(User).where(User.id == user_id).values(name=user.name, email=user.email, mobile=user.mobile)
+        queryResult.execution_options(synchronize_session="fetch")
+        await self.db_session.execute(queryResult)
         updated_user = await self.get_user(user_id)
         return updated_user
     async def get_user_by_email(self, email: str) -> UserOut:
-        q = await self.db_session.execute(select(User).where(User.email == email))
-        result = q.scalar()
+        queryResult = await self.db_session.execute(select(User).where(User.email == email))
+        result = queryResult.scalar()
         if result is None:
             return None
         return UserOut.from_orm(result)
