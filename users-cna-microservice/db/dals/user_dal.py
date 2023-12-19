@@ -11,7 +11,7 @@ class UserDAL():
         self.db_session = db_session
 
     async def create_user(self, user: UserIn) -> UserOut:
-        print("@✅✅✅✅✅✅✅✅✅✅")
+
         new_user = User(name=user.name, email=user.email, mobile=user.mobile)
         self.db_session.add(new_user)
         await self.db_session.flush()
@@ -33,4 +33,7 @@ class UserDAL():
         return updated_user
     async def get_user_by_email(self, email: str) -> UserOut:
         q = await self.db_session.execute(select(User).where(User.email == email))
-        return UserOut.from_orm(q.scalar())
+        result = q.scalar()
+        if result is None:
+            return None
+        return UserOut.from_orm(result)
