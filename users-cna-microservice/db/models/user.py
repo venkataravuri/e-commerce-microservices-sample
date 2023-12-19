@@ -13,7 +13,7 @@ class User(Base):
 class UserBase(BaseModel):
     name: str
     email: str
-    mobile: int
+    mobile: str
 
 class UserIn(UserBase):
     pass
