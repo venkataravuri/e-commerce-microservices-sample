@@ -8,6 +8,8 @@ fastapi = "*"
 uvicorn = "*"
 sqlalchemy = "*"
 aiosqlite = "*"
+typing-extensions = "*"
+greenlet = "*"
 
 [dev-packages]
 
