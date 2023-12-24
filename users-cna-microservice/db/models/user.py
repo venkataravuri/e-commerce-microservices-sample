@@ -8,12 +8,12 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     email = Column(String, unique=True, index=True)
-    mobile = Column(String, unique=True, index=True)
+    password = Column(String, index=True)
 
 class UserBase(BaseModel):
     name: str
     email: str
-    mobile: str
+    password: str
 
 class UserIn(UserBase):
     pass

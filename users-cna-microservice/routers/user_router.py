@@ -37,3 +37,10 @@ async def get_user(user_id: int, user_dal: UserDAL = Depends(get_user_dal)):
 @router.get("/users", response_model=List[UserOut])
 async def get_all_users(user_dal: UserDAL = Depends(get_user_dal)):
     return await user_dal.get_all_users()
+
+@router.post("/sign-in", response_model=UserOut)
+async def verify_user(email: str, password: str, user_dal: UserDAL = Depends(get_user_dal)):
+    db_user = await user_dal.verify_user(email, password)
+    if db_user is None:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    return db_user
