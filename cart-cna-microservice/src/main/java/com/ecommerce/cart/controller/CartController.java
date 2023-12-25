@@ -1,19 +1,19 @@
 package com.ecommerce.cart.controller;
 
-import java.util.UUID;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.core.ReactiveValueOperations;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping; 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import com.ecommerce.cart.model.Cart;
 import com.ecommerce.cart.model.CartItem;
@@ -53,29 +53,53 @@ public class CartController {
     }
 
     @PostMapping("/cart")
-    Mono<Void> create(@RequestBody Mono<Cart> cart) {
-        return cart.doOnNext(c -> {
-            LOG.info("Adding cart to Redis: {}", c);
+    Mono<Void> create(@RequestBody Mono<Cart> cartMono) {
+        return cartMono.doOnNext(cart -> {
+            LOG.info("✅✅✅✅ Adding cart to Redis: {}", cart);
             float total = 0;
-            if (c.getCustomerId() == null) {
-                LOG.error("Customer Id is missing.");
+            if (cart.getCustomerId() == null) {
+                LOG.error("🔥🔥🔥🔥 Customer Id is missing.");
                 return;
             }
-            for (CartItem item : c.getItems()) {
+            for (CartItem item : cart.getItems()) {
                 total += item.getPrice() * item.getQuantity();
             }
-            c.setTotal(total);
-            cartOps.set(c.getCustomerId(), c).subscribe();
+            cart.setTotal(total);
+            cartOps.set(cart.getCustomerId(), cart).subscribe();
         }).then();
     }
 
     @DeleteMapping("/cart/{customerId}/{productId}")
     Mono<Void> delete(@PathVariable String customerId, @PathVariable String productId) {
         return cartOps.get(customerId).flatMap(c -> {
-            //중요!! getItemId() is not exist in CartItem class. so we need to add it. (important!!!)
             c.getItems().removeIf(item -> item.getProductId().equals(productId));
             return cartOps.set(c.getCustomerId(), c);
         }).then();
     }
-  }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/cart/{customerId}")
+    public Mono<ResponseEntity<Void>> addToCart(@PathVariable String customerId, @RequestBody Mono<CartItem> newItemMono) {
+        return newItemMono.doOnNext(newItem -> LOG.info("🔥🔥🔥🔥 Adding item to cart: {}", newItem))
+            .flatMap(newItem -> cartOps.get(customerId)
+                .defaultIfEmpty(new Cart(customerId))
+                .flatMap(cart -> {
+                    for (CartItem item : cart.getItems()) {
+                        if (item.getProductId().equals(newItem.getProductId())) {
+                            item.setQuantity(item.getQuantity() + newItem.getQuantity());
+                            cart.setTotal(cart.getTotal() + newItem.getPrice() * newItem.getQuantity());
+                            return Mono.just(cart);
+                        }
+                    }
+                    cart.getItems().add(newItem);
+                    cart.setTotal(cart.getTotal() + newItem.getPrice() * newItem.getQuantity());
+                    return Mono.just(cart);
+                }))
+                .flatMap(cart -> {
+                    LOG.info("✅✅✅✅ Adding item to cart: {}", cart);
+                    return cartOps.set(customerId, cart);
+                })
+                .thenReturn(new ResponseEntity<Void>(HttpStatus.CREATED))
+                .onErrorReturn(new ResponseEntity<Void>(HttpStatus.BAD_REQUEST));
+    }
+}

@@ -1,27 +1,26 @@
-import * as React from "react";
-import { styled, alpha, useTheme } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import ThemeContext from "../layout/ThemeContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import { useNavigate } from "react-router-dom";
-import Link from "@mui/material/Link";
-import { useBearStore } from "../../store/store";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { render } from "@testing-library/react";
+import MenuIcon from "@mui/icons-material/Menu";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AppBar from "@mui/material/AppBar";
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import InputBase from "@mui/material/InputBase";
+import Link from "@mui/material/Link";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { alpha, styled, useTheme } from "@mui/material/styles";
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { useBearStore } from "../../store/store";
+import ThemeContext from "../layout/ThemeContext";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -100,6 +99,11 @@ export default function PrimarySearchAppBar() {
 
   const handleOnClickCart = () => {
     //현재 로그인한 유저가 있는지 검증 후 현재 로그인한 유저의 cart 정보를 보여주는 로직 구현 필요
+    if (!accessToken) {
+      alert("로그인이 필요한 서비스입니다.");
+      navigate("/sign-in");
+      return;
+    }
     navigate("/cart");
   };
 
@@ -272,9 +276,9 @@ export default function PrimarySearchAppBar() {
               color="inherit"
             >
               {/* 뱃지 카운트 하드코딩 돼있음. 실제 api와 연동 필요 */}
-              <Badge badgeContent={1} color="error">
-                <ShoppingCartIcon onClick={handleOnClickCart} />
-              </Badge>
+              {/* <Badge badgeContent={1} color="error"> */}
+              <ShoppingCartIcon onClick={handleOnClickCart} />
+              {/* </Badge> */}
             </IconButton>
           </Box>
 

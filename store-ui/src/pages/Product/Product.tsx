@@ -16,20 +16,22 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
+import { useBearStore } from "../../store/store";
 
 const Product = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const [product, setProduct] = React.useState({} as any);
-
   const [textQuantity, setQuantity] = React.useState<number>(1);
+
+  const { loggedInUserEmail } = useBearStore();
 
   const onQuantityChange = (e: any) => setQuantity(e.target.value);
   const handleAdd = () => setQuantity(textQuantity + 1);
   const handleMinus = () => setQuantity(textQuantity - 1);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const item = {
       productId: product?._id,
       sku: product?.variants[0]?.sku,
@@ -38,10 +40,16 @@ const Product = () => {
       price: product?.price,
       currency: product?.currency,
     };
-    addToCart(item).then((result) => {
-      console.log(result);
-      navigate("/cart");
-    });
+
+    const response = await addToCart(loggedInUserEmail, item);
+    if (response && (response.status === 200 || response.status === 201)) {
+      console.log(`response.status: ${response.status}`);
+      alert("카트에 추가되었습니다.");
+      // 이때 카드에 담긴 아이템 개수 업데이트
+    } else {
+      console.log(`response.status: ${response?.status}`);
+      alert("카트 추가에 실패했습니다.");
+    }
   };
 
   // run on load
@@ -113,6 +121,7 @@ const Product = () => {
                   <AddCircleIcon />
                 </IconButton>
               </Grid>
+
               <Grid item sx={{ p: 1 }}>
                 <Grid container direction="row">
                   <Grid item sx={{ p: 1 }}>
