@@ -24,3 +24,14 @@ class UserOut(UserBase):
 #'orm_mode' has been renamed to 'from_attributes'
     class Config:
         from_attributes = True
+
+class LoggedInUserInfo(BaseModel):
+    accessToken: str
+    tokenType: str
+    loggedInUserEmail: str
+    loggedInUserName: str
+
+
+class SignInRequest(BaseModel):
+    email: str
+    password: str

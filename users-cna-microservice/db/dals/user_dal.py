@@ -18,7 +18,6 @@ class UserDAL():
     async def verify_user(self, email: str, password: str) -> UserOut:
         queryResult = await self.db_session.execute(select(User).where(User.email == email))
         user = queryResult.scalar()
-        print('@@@ '+user.email+' '+user.password +' '+ 'password: '+password)
         if user is None:
             return None
         if not check_password_hash(user.password, password):
