@@ -1,11 +1,23 @@
-# 농산물 이커머스 웹 앱 새싹농장마켓 - Microservices 및 클라우드 네이티브 아키텍처를 활용
+# 농산물 이커머스 웹 앱 새싹농장마켓 
 
 **Microservices 및 클라우드 네이티브 아키텍처 패턴을 사용하여 구축된 가상의 새싹농장마켓 웹 어플리케이션**
+<br/>
+<br/>
 
-- **폴리글랏(polyglot) 언어 및 프레임워크** (Java - Spring Boot/Cloud, Python - FastAPI, SQLAlachamey, JavaScript/TypeScript - Node, ExpressJS, React)
-- **폴리글랏(polyglot) 데이터베이스** (MongoDB, Redis, PostgreSQL)
+- **폴리글랏(polyglot) 언어 및 프레임워크**
+  - Java: Spring Boot/Cloud,
+  - Python: FastAPI, SQLAlachamey,
+  - JavaScript/TypeScript: Node, ExpressJS, React
+
+
+- **폴리글랏(polyglot) 데이터베이스** 
+  - MongoDB
+  - Redis
+  - PostgreSQL
+    
 - 로컬 Kubernetes (k8s) 클러스터로 컨테이너 (Docker)로 배포할 수 있으며, 또한 **AWS (Amazon Web Services)**에도 배포(예정)
-
+<br/>
+<br/>
 
 ## 어플리케이션 - UI/UX, 아키텍처 및 사용된 기술
 
