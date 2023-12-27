@@ -1,12 +1,10 @@
-import axiosClient, {productsUrl} from "./config"
+import axiosClient, { productsUrl } from "./config";
 
-const getProductByVariantSku = async (id: any) => {
-    try {
-        const response = await axiosClient.get(productsUrl + 'products/sku/' + id)
-        return response.data
-    } catch (err: any) {
-        
-    }
-}
+const getProductByProductId = async (id: any) => {
+  try {
+    const response = await axiosClient.get(productsUrl + "products/_id/" + id);
+    return response.data;
+  } catch (err: any) {}
+};
 
-export default getProductByVariantSku
+export default getProductByProductId;

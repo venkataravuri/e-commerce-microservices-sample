@@ -13,6 +13,7 @@ import * as React from "react";
 import { useState } from "react";
 import user_signup from "../../api/user_signup";
 import { useNavigate } from "react-router-dom";
+import { CssTextField } from "../../components/CssTextField/CssTextField";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -72,8 +73,12 @@ export default function SignUp() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
+          <Avatar sx={{ m: 1, bgcolor: "#4CDA66" }}>
+            <LockOutlinedIcon
+              sx={{
+                backgroundColor: "#4CDA66",
+              }}
+            />
           </Avatar>
           <Typography component="h1" variant="h5">
             회원가입
@@ -81,7 +86,7 @@ export default function SignUp() {
           <Box component="form" noValidate sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12}>
-                <TextField
+                <CssTextField
                   autoComplete="given-name"
                   name="name"
                   required
@@ -94,7 +99,7 @@ export default function SignUp() {
               </Grid>
 
               <Grid item xs={12}>
-                <TextField
+                <CssTextField
                   required
                   fullWidth
                   id="email"
@@ -109,7 +114,7 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
+                <CssTextField
                   required
                   fullWidth
                   name="password"
@@ -125,15 +130,27 @@ export default function SignUp() {
               type="button"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#222222",
+                ":hover": { backgroundColor: "#111111" },
+              }}
               onClick={handleSubmit}
             >
               회원가입
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/sign-in" variant="body2">
-                  이미 이메일아이디가 있나요? 로그인
+                <Link href="/sign-in" variant="body2" underline="none">
+                  <Typography
+                    sx={{
+                      color: "#222222",
+                      ":hover": { color: "#111111" },
+                    }}
+                  >
+                    이미 이메일아이디가 있나요? 로그인
+                  </Typography>
                 </Link>
               </Grid>
             </Grid>

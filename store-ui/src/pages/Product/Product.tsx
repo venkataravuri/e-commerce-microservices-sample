@@ -1,26 +1,25 @@
-import * as React from "react";
-import { useParams } from "react-router-dom";
-import getProductByVariantSku from "../../api/products";
-import addToCart from "../../api/cart";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import StarIcon from "@mui/icons-material/Star";
 import { Typography } from "@mui/material";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
+import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import StarIcon from "@mui/icons-material/Star";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PaidIcon from "@mui/icons-material/Paid";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import TextField from "@mui/material/TextField";
-import { useNavigate } from "react-router-dom";
+import Paper from "@mui/material/Paper";
+import * as React from "react";
+import { useParams } from "react-router-dom";
+import addToCart from "../../api/cart";
+import getProductByProductId from "../../api/products";
+import { CssTextField } from "../../components/CssTextField/CssTextField";
+import { CircularLoading } from "../../components/Loading/CircularLoading";
 import { useBearStore } from "../../store/store";
+import { formatPrice } from "../../factories/formatPrice";
 
 const Product = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [product, setProduct] = React.useState({} as any);
   const [textQuantity, setQuantity] = React.useState<number>(1);
@@ -28,13 +27,21 @@ const Product = () => {
   const { loggedInUserEmail } = useBearStore();
 
   const onQuantityChange = (e: any) => setQuantity(e.target.value);
-  const handleAdd = () => setQuantity(textQuantity + 1);
-  const handleMinus = () => setQuantity(textQuantity - 1);
+  const handleAdd = () => {
+    if (textQuantity < 10) {
+      setQuantity(textQuantity + 1);
+    }
+  };
+  const handleMinus = () => {
+    if (textQuantity > 1) {
+      setQuantity(textQuantity - 1);
+    }
+  };
 
   const handleAddToCart = async () => {
     const item = {
       productId: product?._id,
-      sku: product?.variants[0]?.sku,
+      sku: product?.sku,
       title: product?.title,
       quantity: textQuantity,
       price: product?.price,
@@ -54,30 +61,51 @@ const Product = () => {
 
   // run on load
   React.useEffect(() => {
-    getProductByVariantSku(id).then((result) => setProduct(result));
+    getProductByProductId(id).then((result) => setProduct(result));
   }, []);
 
+  if (product.length === 0) {
+    return <CircularLoading />;
+  }
+
   return (
-    <Box sx={{ p: 1 }}>
-      <Paper elevation={3}>
-        <Grid container>
-          <Grid item xs={4} sx={{ p: 2 }}>
-            <Grid
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-            >
+    <Box
+      sx={{
+        p: 3,
+        display: "flex",
+        alignItems: "row",
+        justifyContent: "center",
+      }}
+    >
+      <Paper elevation={3} sx={{ width: "60%" }}>
+        <Grid
+          container
+          sx={{
+            p: 2,
+          }}
+        >
+          <Grid item>
+            <Grid container>
               <Grid item>
-                <Typography variant="h5">{product?.title}</Typography>
-              </Grid>
-              <Grid item>
-                <img src={product?.thumbnail} width="200"></img>
+                <img
+                  src={product?.thumbnail}
+                  style={{
+                    width: "400px",
+                    height: "400px",
+                    objectFit: "cover",
+                  }}
+                  alt={product?.title}
+                />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={8}>
-            <Grid container direction="column">
+          <Grid item>
+            <Grid container direction="column" sx={{ pl: 2 }}>
+              <Grid item>
+                <Typography variant="h5" sx={{ p: 1, fontWeight: "bold" }}>
+                  {product?.title}
+                </Typography>
+              </Grid>
               <Grid sx={{ p: 1 }}>
                 <Typography variant="h6">
                   {product?.attributes?.brand}
@@ -87,11 +115,16 @@ const Product = () => {
                 <Typography>{product?.description}</Typography>
               </Grid>
               <Grid item sx={{ p: 1 }}>
-                <Typography variant="h6">$ {product?.price}</Typography>
+                <Typography variant="h6">
+                  {formatPrice(product?.price)}원
+                </Typography>
               </Grid>
               <Grid item sx={{ p: 1 }}>
-                Rating&nbsp;&nbsp;
-                <Chip icon={<StarIcon />} label={product?.rating} />
+                <Chip
+                  icon={<StarIcon sx={{ "&&": { color: "#FB9F2C" } }} />}
+                  label={product?.rating}
+                  sx={{ backgroundColor: "grey" }}
+                />
               </Grid>
               <Grid item sx={{ p: 1 }}>
                 <IconButton
@@ -99,11 +132,13 @@ const Product = () => {
                   aria-label="decrement"
                   component="span"
                   onClick={handleMinus}
+                  style={{
+                    color: "#222222",
+                  }}
                 >
                   <RemoveCircleIcon />
                 </IconButton>
-                <TextField
-                  sx={{ width: "8ch" }}
+                <CssTextField
                   required
                   id="quantity"
                   label="Quantity"
@@ -117,6 +152,9 @@ const Product = () => {
                   aria-label="increment"
                   component="span"
                   onClick={handleAdd}
+                  style={{
+                    color: "#222222",
+                  }}
                 >
                   <AddCircleIcon />
                 </IconButton>
@@ -125,15 +163,16 @@ const Product = () => {
               <Grid item sx={{ p: 1 }}>
                 <Grid container direction="row">
                   <Grid item sx={{ p: 1 }}>
-                    <Button variant="outlined" startIcon={<PaidIcon />}>
-                      Buy Now
-                    </Button>
-                  </Grid>
-                  <Grid item sx={{ p: 1 }}>
                     <Button
                       variant="contained"
                       startIcon={<ShoppingCartIcon />}
                       onClick={handleAddToCart}
+                      sx={{
+                        backgroundColor: "#A6CF5B",
+                        ":hover": {
+                          backgroundColor: "#85B04B", // 마우스를 올렸을 때의 배경색
+                        },
+                      }}
                     >
                       Add to Cart
                     </Button>

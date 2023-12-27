@@ -5,14 +5,13 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import user_signin from "../../api/user_signin";
+import { CssTextField } from "../../components/CssTextField/CssTextField";
 import { useBearStore } from "../../store/store";
-
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
@@ -70,14 +69,18 @@ export default function SignIn() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
+          <Avatar sx={{ m: 1, bgcolor: "#4CDA66" }}>
+            <LockOutlinedIcon
+              sx={{
+                backgroundColor: "#4CDA66",
+              }}
+            />
           </Avatar>
           <Typography component="h1" variant="h5">
             이메일 로그인
           </Typography>
           <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
+            <CssTextField
               margin="normal"
               required
               fullWidth
@@ -91,7 +94,7 @@ export default function SignIn() {
               error={emailError}
               helperText={emailError ? "이메일 형식이 아닙니다." : ""}
             />
-            <TextField
+            <CssTextField
               margin="normal"
               required
               fullWidth
@@ -106,7 +109,12 @@ export default function SignIn() {
               type="button"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{
+                mt: 3,
+                mb: 2,
+                backgroundColor: "#222222",
+                ":hover": { backgroundColor: "#111111" },
+              }}
               onClick={handleSignIn}
             >
               로그인
@@ -118,8 +126,8 @@ export default function SignIn() {
               variant="contained"
               sx={{
                 backgroundColor: "white",
-                borderColor: "primary.main",
-                color: "primary.main",
+                borderColor: "#222222",
+                color: "#222222",
                 borderStyle: "solid",
                 borderWidth: "1px",
                 mb: 1,

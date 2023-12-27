@@ -21,6 +21,8 @@ import com.ecommerce.cart.model.CartItem;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+
 @CrossOrigin
 @RestController
 public class CartController {
@@ -49,7 +51,8 @@ public class CartController {
 
     @GetMapping("/cart/{customerId}")
     public Mono<Cart> findById(@PathVariable String customerId) {
-        return cartOps.get(customerId);
+        return cartOps.get(customerId)
+        .defaultIfEmpty(new Cart(customerId));
     }
 
     @PostMapping("/cart")

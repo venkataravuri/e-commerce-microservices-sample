@@ -1,65 +1,21 @@
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
 import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AppBar from "@mui/material/AppBar";
 import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import InputBase from "@mui/material/InputBase";
 import Link from "@mui/material/Link";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { alpha, styled, useTheme } from "@mui/material/styles";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useBearStore } from "../../store/store";
-import ThemeContext from "../layout/ThemeContext";
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
 
 export default function PrimarySearchAppBar() {
   const navigate = useNavigate();
@@ -73,15 +29,8 @@ export default function PrimarySearchAppBar() {
 
   const { accessToken, setLogoutData } = useBearStore();
 
-  const handleProfileMenuOpen = (event: any) => {
-    // 유저 로그인 정보가 있으면 마이페이지로 이동
-    if (accessToken) {
-      navigate("/mypage");
-    }
-    // 유저 로그인 정보가 없으면 로그인 페이지로 이동
-    else {
-      navigate("/sign-in");
-    }
+  const handleLogin = (event: any) => {
+    navigate("/sign-in");
   };
 
   const handleMobileMenuClose = () => {
@@ -135,31 +84,7 @@ export default function PrimarySearchAppBar() {
     </Menu>
   );
 
-  const theme = useTheme();
-  const colorMode = React.useContext(ThemeContext);
-
-  const renderThemeToggle = (
-    <Box
-      sx={{
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <IconButton
-        sx={{ ml: 0 }}
-        onClick={colorMode.toggleColorMode}
-        color="inherit"
-      >
-        {theme.palette.mode === "dark" ? (
-          <Brightness7Icon />
-        ) : (
-          <Brightness4Icon />
-        )}
-      </IconButton>
-    </Box>
-  );
-
-  const renderLogoutIcon = () => {
+  const renderLoginLogoutIcon = () => {
     if (accessToken) {
       return (
         <IconButton sx={{ ml: 0 }} onClick={handleLogout} color="inherit">
@@ -168,7 +93,19 @@ export default function PrimarySearchAppBar() {
       );
     }
 
-    return null;
+    return (
+      <IconButton
+        size="large"
+        edge="end"
+        aria-label="account of current user"
+        aria-controls={menuId}
+        aria-haspopup="true"
+        onClick={handleLogin}
+        color="inherit"
+      >
+        <LoginIcon />
+      </IconButton>
+    );
   };
 
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -200,7 +137,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <Typography>Notifications</Typography>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={handleLogin}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -217,7 +154,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ backgroundColor: "#5fb960" }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -241,35 +178,18 @@ export default function PrimarySearchAppBar() {
             }}
           >
             <img src="logo.png" width="32" height="32" alt="logo" />
-            &nbsp; 새싹마켓
+            <Typography
+              sx={{ color: "white", fontWeight: "bold", fontSize: 20 }}
+            >
+              &nbsp;새싹농장마켓
+            </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ width: "45%" }}>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="검색"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
-          </Box>
+
           <Box sx={{ flexGrow: 1 }} />
-          {renderThemeToggle}
+          {/* {renderThemeToggle} */}
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            {renderLogoutIcon()}
+            {renderLoginLogoutIcon()}
             <IconButton
               size="large"
               aria-label="1 item in your shopping cart"

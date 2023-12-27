@@ -1,26 +1,19 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 import { getCart } from "../../api/cart";
+import { CircularLoading } from "../../components/Loading/CircularLoading";
 import { useBearStore } from "../../store/store";
+import { formatPrice } from "../../factories/formatPrice";
+import Typography from "@mui/material/Typography";
+import { CssTextField } from "../../components/CssTextField/CssTextField";
 
 const Cart = () => {
   const [cart, setCart] = useState({} as any);
-
-  // const [textQuantity, setQuantity] = useState<number>(1);
-
   const { loggedInUserEmail } = useBearStore();
 
-  // const onQuantityChange = (e: any) => setQuantity(e.target.value);
-  // const handleAdd = () => setQuantity(textQuantity + 1);
-  // const handleMinus = () => setQuantity(textQuantity - 1);
   const Loading = () => (
     <div
       style={{
@@ -30,7 +23,7 @@ const Cart = () => {
         height: "100vh",
       }}
     >
-      <CircularProgress />
+      <CircularLoading />
     </div>
   );
 
@@ -47,6 +40,16 @@ const Cart = () => {
   }
 
   const renderCartItems = () => {
+    if (cart.items.length === 0) {
+      return (
+        <Grid container direction="row" sx={{ p: 1 }}>
+          <Grid item xs={6}>
+            <Typography variant="h6">카트에 담긴 상품이 없습니다.</Typography>
+          </Grid>
+        </Grid>
+      );
+    }
+
     return cart.items.map((item: any, index: number) => (
       <Grid container key={index} direction="row" sx={{ p: 1 }}>
         <Grid item xs={6}>
@@ -55,50 +58,74 @@ const Cart = () => {
         <Grid item xs={4}>
           <Typography></Typography>
           <Grid item>
-            {/* <IconButton
-                color="primary"
-                aria-label="decrement"
-                component="span"
-                onClick={handleMinus}
-              >
-                <RemoveCircleIcon />
-              </IconButton> */}
-            <TextField
-              sx={{ width: "8ch" }}
+            <CssTextField
+              sx={{ width: "8ch", pb: 3 }}
               required
               id="quantity"
               label="Quantity"
               size="small"
-              // onChange={onQuantityChange}
               value={item.quantity}
             />
-            {/* <IconButton
-                color="primary"
-                aria-label="increment"
-                component="span"
-                onClick={handleAdd}
-              >
-                <AddCircleIcon />
-              </IconButton> */}
           </Grid>
         </Grid>
         <Grid item>
-          <Typography>{"$" + item.price}</Typography>
+          <Typography>{`${formatPrice(
+            (parseInt(item.price) * parseInt(item.quantity)).toString()
+          )}원`}</Typography>
         </Grid>
       </Grid>
     ));
   };
 
   return (
-    <Box sx={{ p: 1 }}>
-      <Paper elevation={3} sx={{ p: 1 }}>
-        <Grid container>
+    <Box
+      sx={{
+        p: 3,
+        display: "flex",
+        alignItems: "row",
+        justifyContent: "center",
+      }}
+    >
+      <Paper elevation={3} sx={{ width: "60%" }}>
+        <Grid
+          container
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            p: 2,
+          }}
+        >
           <Grid
             item
-            xs={12}
-            sx={{ display: "flex", justifyContent: "flex-end" }}
+            xs={8}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
           >
             {renderCartItems()}
+          </Grid>
+          <Grid
+            item
+            ml={2}
+            xs={3}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              borderLeft: "1px solid #c9c9c9",
+            }}
+          >
+            <Typography sx={{ fontWeight: "bold" }}>
+              {`총 주문금액:`}
+            </Typography>
+            <Typography sx={{ fontWeight: "bold" }}>
+              {`${formatPrice(
+                cart && cart.total ? cart.total.toString() : "0"
+              )}원`}
+            </Typography>
           </Grid>
         </Grid>
       </Paper>
