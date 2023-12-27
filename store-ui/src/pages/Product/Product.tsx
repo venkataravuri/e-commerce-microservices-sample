@@ -2,7 +2,6 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
-import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
@@ -17,6 +16,8 @@ import { CssTextField } from "../../components/CssTextField/CssTextField";
 import { CircularLoading } from "../../components/Loading/CircularLoading";
 import { useBearStore } from "../../store/store";
 import { formatPrice } from "../../factories/formatPrice";
+import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
   const { id } = useParams();
@@ -24,7 +25,9 @@ const Product = () => {
   const [product, setProduct] = React.useState({} as any);
   const [textQuantity, setQuantity] = React.useState<number>(1);
 
-  const { loggedInUserEmail } = useBearStore();
+  const { loggedInUserEmail, accessToken } = useBearStore();
+
+  const navigate = useNavigate();
 
   const onQuantityChange = (e: any) => setQuantity(e.target.value);
   const handleAdd = () => {
@@ -39,6 +42,12 @@ const Product = () => {
   };
 
   const handleAddToCart = async () => {
+    if (!accessToken) {
+      alert("로그인이 필요합니다.");
+      navigate("/sign-in");
+      return;
+    }
+
     const item = {
       productId: product?._id,
       sku: product?.sku,
@@ -141,7 +150,7 @@ const Product = () => {
                 <CssTextField
                   required
                   id="quantity"
-                  label="Quantity"
+                  label="개수"
                   size="small"
                   onChange={onQuantityChange}
                   value={textQuantity}
@@ -174,7 +183,7 @@ const Product = () => {
                         },
                       }}
                     >
-                      Add to Cart
+                      <Typography>장바구니 담기</Typography>
                     </Button>
                   </Grid>
                 </Grid>

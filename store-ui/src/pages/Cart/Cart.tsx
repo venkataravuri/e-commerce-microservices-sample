@@ -62,7 +62,7 @@ const Cart = () => {
               sx={{ width: "8ch", pb: 3 }}
               required
               id="quantity"
-              label="Quantity"
+              label="개수"
               size="small"
               value={item.quantity}
             />
