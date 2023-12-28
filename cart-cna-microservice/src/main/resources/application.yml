@@ -1,5 +1,5 @@
 spring:
   redis:
-    host: localhost #${SPRING_REDIS_HOST}
-    port: 6379 # ${SPRING_REDIS_PORT}
-    #password: ${SPRING_REDIS_PASSWORD}
+    host: ${SPRING_REDIS_HOST:localhost}
+    port: ${SPRING_REDIS_PORT:6379}
+    password: ${SPRING_REDIS_PASSWORD:1234}

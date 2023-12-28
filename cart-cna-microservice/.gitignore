@@ -1,5 +1,6 @@
 # Igrone .env for sensitive data
 .env
+.env.*
 
 # Package Files #
 *.jar

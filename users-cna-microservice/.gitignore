@@ -2,3 +2,5 @@
 /venv/
 /.vscode/
 /test.db
+
+.env
