@@ -9,11 +9,7 @@ from routers.user_router import router
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
 
-from dotenv import load_dotenv
 import os
-
-# .env 파일 로드
-load_dotenv()
 
 # create db session
 async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)

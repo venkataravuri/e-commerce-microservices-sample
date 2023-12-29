@@ -10,6 +10,11 @@ sqlalchemy = "*"
 aiosqlite = "*"
 typing-extensions = "*"
 greenlet = "*"
+python-dotenv = "*"
+asyncpg = "*"
+werkzeug = "*"
+python_jwt = "*"
+passlib = "*"
 
 [dev-packages]
 

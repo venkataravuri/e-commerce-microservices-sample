@@ -130,6 +130,7 @@ export default function SignIn() {
                 color: "#222222",
                 borderStyle: "solid",
                 borderWidth: "1px",
+                ":hover": { backgroundColor: "#111111", color: "white" },
                 mb: 1,
               }}
               onClick={handleSignUp}

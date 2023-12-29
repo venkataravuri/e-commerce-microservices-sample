@@ -1,10 +1,6 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import declarative_base, sessionmaker
-from dotenv import load_dotenv
 import os
-
-# .env 파일 로드
-load_dotenv()
 
 # 환경 변수 사용
 db_engine = os.getenv("DB_ENGINE")

@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from db.dals.user_dal import UserDAL
 from db.models.user import UserIn, UserOut,LoggedInUserInfo, SignInRequest
 from dependencies import get_user_dal
-from jose import jwt
+import python_jwt as jwt
 from passlib.context import CryptContext
 from datetime import datetime, timedelta
 
