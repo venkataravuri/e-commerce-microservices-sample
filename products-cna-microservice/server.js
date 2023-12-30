@@ -1,5 +1,4 @@
-// Loads the configuration from config.env to process.env
-require("dotenv").config({ path: "./.env" });
+// Loads the configuration from config.env to
 const deals = require("./data/deals");
 const products = require("./data/products");
 
@@ -8,7 +7,7 @@ const cors = require("cors");
 // get MongoDB driver connection
 const dbo = require("./db/conn");
 
-const PORT = process.env.SERVER_PORT || 5555;
+const PORT = process.env.SERVER_PORT || 5010;
 const app = express();
 console.log(process.env.PORT);
 

@@ -38,24 +38,24 @@ public class CartController {
         this.cartOps = this.redisTemplate.opsForValue();
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/api/carts/")
     public String index() {
         return "{ \"name\": \"Cart API\", \"version\": 1.0.0} ";
     }
 
-    @GetMapping("/cart")
+    @GetMapping("/api/carts/all-carts")
     public Flux<Cart> list() {
         return redisTemplate.keys("*")
                 .flatMap(cartOps::get);
     }
 
-    @GetMapping("/cart/{customerId}")
+    @GetMapping("/api/carts/{customerId}")
     public Mono<Cart> findById(@PathVariable String customerId) {
         return cartOps.get(customerId)
         .defaultIfEmpty(new Cart(customerId));
     }
 
-    @PostMapping("/cart")
+    @PostMapping("/api/carts")
     Mono<Void> create(@RequestBody Mono<Cart> cartMono) {
         return cartMono.doOnNext(cart -> {
             LOG.info("✅✅✅✅ Adding cart to Redis: {}", cart);
@@ -72,7 +72,7 @@ public class CartController {
         }).then();
     }
 
-    @DeleteMapping("/cart/{customerId}/{productId}")
+    @DeleteMapping("/api/carts/{customerId}/{productId}")
     Mono<Void> delete(@PathVariable String customerId, @PathVariable String productId) {
         return cartOps.get(customerId).flatMap(c -> {
             c.getItems().removeIf(item -> item.getProductId().equals(productId));
@@ -80,8 +80,8 @@ public class CartController {
         }).then();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
-    @PostMapping("/cart/{customerId}")
+    @CrossOrigin(origins = "*")
+    @PostMapping("/api/carts/{customerId}")
     public Mono<ResponseEntity<Void>> addToCart(@PathVariable String customerId, @RequestBody Mono<CartItem> newItemMono) {
         return newItemMono.doOnNext(newItem -> LOG.info("🔥🔥🔥🔥 Adding item to cart: {}", newItem))
             .flatMap(newItem -> cartOps.get(customerId)

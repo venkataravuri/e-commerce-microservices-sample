@@ -9,24 +9,26 @@ const recordRoutes = express.Router();
 const dbo = require("../db/conn");
 
 // This section will help you get a list of all the records.
-recordRoutes.route("/products").get(async function (_req, res) {
-  const dbConnect = dbo.getDb();
+recordRoutes
+  .route("/api/products/all-products")
+  .get(async function (_req, res) {
+    const dbConnect = dbo.getDb();
 
-  dbConnect
-    .collection("products")
-    .find({})
-    .limit(50)
-    .toArray(function (err, result) {
-      if (err) {
-        res.status(400).send("Error fetching deals!");
-      } else {
-        res.json(result);
-      }
-    });
-});
+    dbConnect
+      .collection("products")
+      .find({})
+      .limit(50)
+      .toArray(function (err, result) {
+        if (err) {
+          res.status(400).send("Error fetching products!");
+        } else {
+          res.json(result);
+        }
+      });
+  });
 
 // This section will help you get a list of all the records.
-recordRoutes.route("/products/_id/:id").get(async function (_req, res) {
+recordRoutes.route("/api/products/_id/:id").get(async function (_req, res) {
   const productId = _req.params.id;
   const dbConnect = dbo.getDb();
 

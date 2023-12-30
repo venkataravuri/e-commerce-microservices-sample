@@ -1,0 +1,46 @@
+version: "3"
+services:
+  store-ui:
+    image: store-ui
+    ports:
+      - 3000:80
+    networks:
+      - ecommerce-network
+
+  products-service:
+    image: products-service
+    environment:
+      - MONGO_USER=qoeocjf5
+      - MONGO_PASSWORD=YTb6Fwsi0gyoVNhW
+      - MONGO_HOST=cluster0.r3lyou4.mongodb.net
+      - MONGO_DB=e-commerce-product-ms
+      - SERVER_PORT=5010
+    networks:
+      - ecommerce-network
+
+  cart-service:
+    image: cart-service
+    environment:
+      - CART_SERVER_PORT=5020
+      - SPRING_REDIS_HOST=host.docker.internal
+      - SPRING_REDIS_PORT=6379
+    networks:
+      - ecommerce-network
+
+  users-service:
+    image: users-service
+    environment:
+      - DB_ENGINE=postgresql+asyncpg
+      - DB_USERNAME=ecommerce_user
+      - DB_PASSWORD=test
+      - DB_HOST=localhost
+      - DB_NAME=user
+      - APP_HOST=localhost
+      - APP_PORT=5030
+      - APP_RELOAD=True
+      - CORS_ORIGINS=*
+    networks:
+      - ecommerce-network
+
+networks:
+  ecommerce-network:

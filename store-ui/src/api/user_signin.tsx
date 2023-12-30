@@ -2,7 +2,7 @@ import axiosClient, { userUrl } from "./config";
 
 const user_signin = async (email: string, password: string) => {
   try {
-    const response = await axiosClient.post(userUrl + "sign-in", {
+    const response = await axiosClient.post(`${userUrl}sign-in`, {
       email: email,
       password: password,
     });

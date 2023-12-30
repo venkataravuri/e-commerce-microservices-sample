@@ -16,4 +16,4 @@ RUN pipenv install --deploy --ignore-pipfile
 COPY . .
 
 # execute the command python main.py (in the WORKDIR) to start the app
-CMD ["pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--reload"]
+CMD ["pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "${APP_PORT}",  "--reload"]

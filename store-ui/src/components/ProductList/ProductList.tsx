@@ -23,7 +23,7 @@ const ProductList = () => {
 
   const loadProductList = async () => {
     try {
-      const response = await axiosClient.get(productsUrl + "products");
+      const response = await axiosClient.get(productsUrl + "all-products");
       setProductList(response.data);
       setError(null);
     } catch (err: any) {

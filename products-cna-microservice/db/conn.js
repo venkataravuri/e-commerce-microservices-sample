@@ -1,5 +1,5 @@
-require("dotenv").config({ path: "./.env" });
 const { MongoClient } = require("mongodb");
+
 const mongoUri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 const connectionString = mongoUri;
 const database = process.env.DATABASE;

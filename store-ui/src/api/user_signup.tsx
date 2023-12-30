@@ -2,7 +2,7 @@ import axiosClient, { userUrl } from "./config";
 
 const user_signup = async (name: string, email: string, password: string) => {
   try {
-    const response = await axiosClient.post(userUrl + "users", {
+    const response = await axiosClient.post(`${userUrl}sign-up`, {
       name: name,
       email: email,
       password: password,

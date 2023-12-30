@@ -13,8 +13,8 @@ greenlet = "*"
 python-dotenv = "*"
 asyncpg = "*"
 werkzeug = "*"
-python_jwt = "*"
 passlib = "*"
+pyjwt = "*"
 
 [dev-packages]
 

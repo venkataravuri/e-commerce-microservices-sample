@@ -26,7 +26,7 @@ app_host = os.getenv("APP_HOST")
 app_port = int(os.getenv("APP_PORT"))  # port는 정수
 app_reload = os.getenv("APP_RELOAD").lower() == 'true'  # reload는 불리언
 
-cors_origins = os.getenv("CORS_ORIGINS").split(',')
+cors_origins = list(os.getenv("CORS_ORIGINS").split(','))
 
 @app.on_event("startup")
 async def startup():
