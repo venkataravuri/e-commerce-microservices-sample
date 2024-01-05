@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - main
+      - ci/**
     paths:
-      - "cart/**"
+      - "cart-cna-microservice/**"
 
 jobs:
   deploy:
