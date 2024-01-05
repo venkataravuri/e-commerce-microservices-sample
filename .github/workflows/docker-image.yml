@@ -1,0 +1,98 @@
+# 워크플로우 이름: e-commerce-microservices CI/CD
+name: e-commerce-microservices CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # 변경 파일 계산 작업
+  job_compute_diff:
+    name: Compute file diff
+    runs-on: ubuntu-latest
+    steps:
+      # 현재 커밋 체크아웃
+      - name: Checkout current commit (${{ github.sha }})
+        uses: actions/checkout@v3
+
+      # 변경된 파일 필터링
+      - name: Compute diff
+        uses: dorny/paths-filter@v2
+        id: compute_diff
+        with:
+          filters: |
+            files:
+              - 'e-commerce-microservices/store-ui/**'
+              - 'e-commerce-microservices/cart-cna-microservice/**'
+              - 'e-commerce-microservices/users-cna-microservice/**'
+              - 'e-commerce-microservices/products-cna-microservice/**'
+
+    # 변경된 파일 목록을 출력으로 설정
+    outputs:
+      files: ${{ steps.compute_diff.outputs.files }}
+
+  # 프로젝트별 빌드 및 ECR 푸시 작업
+  job_build_and_push:
+    name: Build and Push to ECR
+    runs-on: ubuntu-latest
+
+    steps:
+      # AWS CLI 설치
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
+      # 변경된 파일 확인 작업에 의존
+      needs: [job_compute_diff]
+
+      # 변경된 파일이 있는 경우에만 실행되도록 조건 설정
+      if: ${{ needs.job_compute_diff.outputs.files == 'true' }}
+
+      # 'store-ui' 디렉토리에 대한 빌드 및 ECR 푸시
+      - name: Build and Push 'store-ui' to ECR
+        if: "github.event_name == 'push' && contains(needs.job_compute_diff.outputs.files, 'e-commerce-microservices/store-ui/')"
+        run: |
+          # AWS ECR 로그인
+          aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com
+
+        # 'store-ui' 디렉토리 빌드 및 ECR 푸시
+          docker build e-commerce-microservices/store-ui --file e-commerce-microservices/store-ui/Dockerfile --tag 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/store-ui:$(date +%s)
+          docker push 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/store-ui:$(date +%s)
+
+      # 'cart' 디렉토리에 대한 빌드 및 ECR 푸시
+      - name: Build and Push 'cart' to ECR
+        if: "github.event_name == 'push' && contains(needs.job_compute_diff.outputs.files, 'e-commerce-microservices/cart-cna-microservice/')"
+        run: |
+        # AWS ECR 로그인
+          aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com
+
+        # 'cart' 디렉토리 빌드 및 ECR 푸시
+          docker build e-commerce-microservices/cart-cna-microservice --file e-commerce-microservices/cart-cna-microservice/Dockerfile --tag 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/cart:$(date +%s)
+          docker push 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/cart:$(date +%s)
+
+      # 'users' 디렉토리에 대한 빌드 및 ECR 푸시
+      - name: Build and Push 'users' to ECR
+        if: "github.event_name == 'push' && contains(needs.job_compute_diff.outputs.files, 'e-commerce-microservices/users-cna-microservice/')"
+        run: |
+         # AWS ECR 로그인
+          aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com
+
+         # 'users' 디렉토리 빌드 및 ECR 푸시
+          docker build e-commerce-microservices/users-cna-microservice --file e-commerce-microservices/users-cna-microservice/Dockerfile --tag 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/users:$(date +%s)
+          docker push 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/users:$(date +%s)
+
+       # 'products' 디렉토리에 대한 빌드 및 ECR 푸시
+      - name: Build and Push 'products' to ECR
+        if: "github.event_name == 'push' && contains(needs.job_compute_diff.outputs.files, 'e-commerce-microservices/products-cna-microservice/')"
+        run: |
+        # AWS ECR 로그인
+          aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com
+
+          # 'products' 디렉토리 빌드 및 ECR 푸시
+          docker build e-commerce-microservices/products-cna-microservice --file e-commerce-microservices/products-cna-microservice/Dockerfile --tag 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/products:$(date +%s)
+          docker push 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/products:$(date +%s)
