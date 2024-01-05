@@ -26,7 +26,6 @@ jobs:
               - 'e-commerce-microservices/cart-cna-microservice/**'
               - 'e-commerce-microservices/users-cna-microservice/**'
               - 'e-commerce-microservices/products-cna-microservice/**'
-
     outputs:
       files: ${{ steps.compute_diff.outputs.files }}
 
@@ -34,45 +33,34 @@ jobs:
     name: Build and Push to ECR
     runs-on: ubuntu-latest
 
+    needs: [job_compute_diff]  # Correct indentation
+
     steps:
       - name: Install AWS CLI
         run: |
           sudo apt-get update
           sudo apt-get install -y awscli
-
-      needs: [job_compute_diff]
-
-      if: ${{ needs.job_compute_diff.outputs.files == 'true' }}
-
       - name: Build and Push 'store-ui' to ECR
         if: "github.event_name == 'push' && contains(needs.job_compute_diff.outputs.files, 'e-commerce-microservices/store-ui/')"
         run: |
-          # AWS ECR 로그인
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com
-
           docker build e-commerce-microservices/store-ui --file e-commerce-microservices/store-ui/Dockerfile --tag 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/store-ui:$(date +%s)
           docker push 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/store-ui:$(date +%s)
-
       - name: Build and Push 'cart' to ECR
         if: "github.event_name == 'push' && contains(needs.job_compute_diff.outputs.files, 'e-commerce-microservices/cart-cna-microservice/')"
         run: |
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com
-
           docker build e-commerce-microservices/cart-cna-microservice --file e-commerce-microservices/cart-cna-microservice/Dockerfile --tag 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/cart:$(date +%s)
           docker push 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/cart:$(date +%s)
-
       - name: Build and Push 'users' to ECR
         if: "github.event_name == 'push' && contains(needs.job_compute_diff.outputs.files, 'e-commerce-microservices/users-cna-microservice/')"
         run: |
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com
-
           docker build e-commerce-microservices/users-cna-microservice --file e-commerce-microservices/users-cna-microservice/Dockerfile --tag 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/users:$(date +%s)
           docker push 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/users:$(date +%s)
-
       - name: Build and Push 'products' to ECR
         if: "github.event_name == 'push' && contains(needs.job_compute_diff.outputs.files, 'e-commerce-microservices/products-cna-microservice/')"
         run: |
           aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com
-
           docker build e-commerce-microservices/products-cna-microservice --file e-commerce-microservices/products-cna-microservice/Dockerfile --tag 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/products:$(date +%s)
           docker push 375586205616.dkr.ecr.ap-northeast-2.amazonaws.com/products:$(date +%s)
