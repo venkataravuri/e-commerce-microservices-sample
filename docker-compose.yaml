@@ -31,10 +31,10 @@ services:
     image: users-service
     environment:
       - DB_ENGINE=postgresql+asyncpg
-      - DB_USERNAME=ecommerce_user
-      - DB_PASSWORD=test
-      - DB_HOST=localhost
-      - DB_NAME=user
+      - DB_USERNAME=users_admin
+      - DB_PASSWORD=pigeon0112
+      - DB_HOST=ecommerce-users.cgkwkptg3vmk.ap-northeast-2.rds.amazonaws.com
+      - DB_NAME=ecommerce_users
       - APP_HOST=localhost
       - APP_PORT=5030
       - APP_RELOAD=True

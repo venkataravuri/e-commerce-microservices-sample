@@ -23,3 +23,9 @@
 
 # IDE Files
 .vscode
+
+# redis cache file
+dump.rdb
+
+
+

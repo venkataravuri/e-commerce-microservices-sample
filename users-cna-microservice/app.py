@@ -35,6 +35,12 @@ async def startup():
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)    
 
+@app.on_event("shutdown")
+async def shutdown():
+    # close db connection
+    await engine.dispose()
+
+
 origins = cors_origins
 
 app.add_middleware(
