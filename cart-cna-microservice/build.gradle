@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.1'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+  id 'application'
 }
 
 group = 'com.ecommerce'
@@ -46,4 +47,13 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+
+application {
+    mainClass.set('com.ecommerce.cart.CartApplication')
+}
+
+jar {
+  enabled = false
 }
