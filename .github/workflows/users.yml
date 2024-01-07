@@ -39,3 +39,31 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      - name: Checkout GitOps repository
+        uses: actions/checkout@v3
+        with:
+          repository: SeSAC-Team1/gitops-for-e-commerce-microservices
+          token: ${{ secrets.GITOPS_TOKEN }} # 내 계정의 토큰을 사용하면 됨
+
+      - name: Install Kustomize
+        run: |
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+          sudo mv kustomize /usr/local/bin/
+
+      - name: Update Kubernetes manifests
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: users
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          cd overlays/production/users
+          kustomize edit set image users=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'GitHub Actions' 
+          git config --global user.email 'github-actions@github.com'
+          git add .
+          git commit -m "Update users image tag to ${{ github.sha }}"
+            git push
