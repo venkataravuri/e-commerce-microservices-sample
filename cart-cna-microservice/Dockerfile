@@ -1,7 +1,6 @@
-FROM openjdk:17-alpine
+FROM eclipse-temurin:17-jdk
 ARG APP_HOME=/app
 WORKDIR ${APP_HOME}
-RUN apk add --no-cache findutils
 COPY gradlew .
 COPY gradle gradle
 COPY settings.gradle .
