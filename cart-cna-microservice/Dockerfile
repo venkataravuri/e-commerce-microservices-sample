@@ -1,14 +1,11 @@
-FROM eclipse-temurin:17-jdk
-ARG APP_HOME=/app
-WORKDIR ${APP_HOME}
-COPY gradlew .
-COPY gradle gradle
-COPY settings.gradle .
-COPY build.gradle .
+FROM gradle:8.5.0-jdk17 AS builder
+WORKDIR /app
+COPY . .
 RUN chmod +x ./gradlew
-RUN ls -l 
-RUN ./gradlew build -i
-RUN cp build/libs/*.jar app.jar
+RUN ./gradlew build -i -x test
+
+FROM eclipse-temurin:17-jdk
 RUN find . -name "*.jar"
-# COPY ./build/libs/*.jar app.jar
-ENTRYPOINT ["java","-jar","./app.jar", "--server.port=${CART_SERVER_PORT}"]
+COPY --from=builder /app/build/libs/cart-1.0.0.jar /app.jar 
+ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["--server.port=${CART_SERVER_PORT}"]

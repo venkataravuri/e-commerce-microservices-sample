@@ -54,6 +54,6 @@ application {
     mainClass.set('com.ecommerce.cart.CartApplication')
 }
 
-jar {
-  enabled = false
-}
+// jar {
+//   enabled = false
+// }
