@@ -14,6 +14,7 @@ import { useState } from "react";
 import user_signup from "../../api/user_signup";
 import { useNavigate } from "react-router-dom";
 import { CssTextField } from "../../components/CssTextField/CssTextField";
+import { validateEmailForm } from "../../factories/validateForm";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -28,19 +29,23 @@ export default function SignUp() {
 
   const handleSubmit = async () => {
     if (name !== "" && email !== "" && password !== "") {
-      try {
-        const res = await user_signup(name, email, password);
-        if (!res) {
-          alert("회원가입에 실패하였습니다.");
-          // 회원가입 실패 시에는 추가적인 리디렉션 없이 함수 종료
-          return;
-        } else {
-          alert("회원가입에 성공했습니다.");
-          console.log("Navigating to /sign-in");
-          navigate("/sign-in");
+      if (!validateEmailForm(email)) {
+        alert("이메일형식이 아닙니다.");
+      } else {
+        try {
+          const res = await user_signup(name, email, password);
+          if (!res) {
+            alert("회원가입에 실패하였습니다.");
+            // 회원가입 실패 시에는 추가적인 리디렉션 없이 함수 종료
+            return;
+          } else {
+            alert("회원가입에 성공했습니다.");
+            console.log("Navigating to /sign-in");
+            navigate("/sign-in");
+          }
+        } catch (error) {
+          console.error("Error during signup:", error);
         }
-      } catch (error) {
-        console.error("Error during signup:", error);
       }
     } else {
       alert("모든 항목을 입력해주세요.");

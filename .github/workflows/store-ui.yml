@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - ci/**
+      - feat/**
     paths:
       - "store-ui/**"
       - ".github/workflows/store-ui.yml"
