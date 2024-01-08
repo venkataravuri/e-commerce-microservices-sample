@@ -23,6 +23,10 @@ import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.stereotype.Component;
+
 @CrossOrigin
 @RestController
 public class CartController {
@@ -104,5 +108,26 @@ public class CartController {
                 })
                 .thenReturn(new ResponseEntity<Void>(HttpStatus.CREATED))
                 .onErrorReturn(new ResponseEntity<Void>(HttpStatus.BAD_REQUEST));
+    }
+
+    @Component
+    public class RedisConnectionChecker implements CommandLineRunner {
+
+        private final RedisConnectionFactory redisConnectionFactory;
+        private static final Logger LOG = LoggerFactory.getLogger(RedisConnectionChecker.class);
+
+        public RedisConnectionChecker(RedisConnectionFactory redisConnectionFactory) {
+            this.redisConnectionFactory = redisConnectionFactory;
+        }
+
+        @Override
+        public void run(String... args) throws Exception {
+            try {
+                Boolean isRedisUp = redisConnectionFactory.getConnection().ping().equals("PONG");
+                LOG.info("🔥Redis connection status: " + (isRedisUp ? "Connected✅" : "Disconnected🔥"));
+            } catch (Exception e) {
+                LOG.error("❌Failed to connect to Redis: ", e);
+            }
+        }
     }
 }
