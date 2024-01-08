@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - feat/**
+      - ci/**
     paths:
       - "cart-cna-microservice/**"
-
+      - ".github/workflows/cart.yml"
 jobs:
   deploy:
     name: Deploy
@@ -56,8 +58,8 @@ jobs:
           ECR_REPOSITORY: cart
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          cd overlays/production/cart
-          kustomize edit set image cart=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          cd cart
+          kustomize edit set image $ECR_REGISTRY/$ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Commit and push changes
         run: |
