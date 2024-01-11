@@ -4,10 +4,8 @@ on:
   push:
     branches:
       - main
-      - feat/**
     paths:
       - "store-ui/**"
-      - ".github/workflows/store-ui.yml"
 
 jobs:
   deploy:
@@ -58,8 +56,8 @@ jobs:
           ECR_REPOSITORY: store-ui
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          cd overlays/production/store-ui
-          kustomize edit set image store-ui=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          cd store-ui
+          kustomize edit set image $ECR_REGISTRY/$ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Commit and push changes
         run: |

@@ -56,8 +56,8 @@ jobs:
           ECR_REPOSITORY: products
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          cd overlays/production/products
-          kustomize edit set image products=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          cd products
+          kustomize edit set image $ECR_REGISTRY/$ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name: Commit and push changes
         run: |
