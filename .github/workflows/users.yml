@@ -4,11 +4,8 @@ on:
   push:
     branches:
       - main
-      - feat/**
-      - ci/**
     paths:
       - "users-cna-microservice/**"
-      - ".github/workflows/users.yml"
 
 jobs:
   deploy:

@@ -4,11 +4,8 @@ on:
   push:
     branches:
       - main
-      - feat/**
-      - ci/**
     paths:
       - "cart-cna-microservice/**"
-      - ".github/workflows/cart.yml"
 jobs:
   deploy:
     name: Deploy
