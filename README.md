@@ -1,4 +1,4 @@
-# 농산물 이커머스 웹 앱 새싹농장마켓 
+# 농산물 이커머스 웹 앱 새싹농장
 
 **Microservices 및 클라우드 네이티브 아키텍처 패턴을 사용하여 구축된 가상의 새싹농장마켓 웹 어플리케이션**
 <br/>
@@ -41,10 +41,10 @@
 ## 기능적인 마이크로서비스
 | 마이크로서비스  | 설명 | 사용된 기술 |
 | --- | --- | --- |
-| [제품 카탈로그 마이크로서비스](products-cna-microservice/README.md) | 상품 정보 및 이미지 제공 | NodeJS, ExpressJS를 사용한 REST API, MongoDB를 데이터 저장소로 사용 | 
-| [장바구니 마이크로서비스](cart-cna-microservice/README.md) | 장바구니 담기 | Spring Boot & Cloud를 사용한 REST API, Gradle을 빌드 도구로 사용, Redis를 인메모리 데이터 저장소로 사용 |
-| [사용자 프로필 마이크로서비스](users-cna-microservice/README.md) | 사용자 정보, 로그인,로그아웃, 회원가입 | Python FastAPI를 사용한 REST API, SQLAlchamey를 사용한 PostgreSQL |
-| [상점 UI](store-ui/README.md) | 상위 마이크로서비스를 위한 웹 UI 프론트엔드 | React, Material UI, TypeScript/JavaScript를 사용한 웹 앱|
+| [상품정보 ](products-cna-microservice/README.md) | 상품 정보 및 이미지 제공 | NodeJS, ExpressJS를 사용한 REST API, MongoDB를 데이터 저장소로 사용 | 
+| [장바구니 ](cart-cna-microservice/README.md) | 장바구니 담기 | Spring Boot & Cloud를 사용한 REST API, Gradle을 빌드 도구로 사용, Redis를 인메모리 데이터 저장소로 사용 |
+| [회원정보 ](users-cna-microservice/README.md) | 사용자 정보, 로그인,로그아웃, 회원가입 | Python FastAPI를 사용한 REST API, SQLAlchamey를 사용한 PostgreSQL |
+| [새싹농장 웹 UI](store-ui/README.md) | 웹 UI 프론트엔드 | React, Material UI, TypeScript/JavaScript를 사용한 웹 앱|
 
 
 ## Folder Structure
