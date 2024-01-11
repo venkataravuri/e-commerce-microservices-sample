@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "cart-cna-microservice/**"
+
 jobs:
   deploy:
     name: Deploy
