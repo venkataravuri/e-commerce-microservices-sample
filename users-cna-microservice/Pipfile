@@ -8,6 +8,13 @@ fastapi = "*"
 uvicorn = "*"
 sqlalchemy = "*"
 aiosqlite = "*"
+typing-extensions = "*"
+greenlet = "*"
+python-dotenv = "*"
+asyncpg = "*"
+werkzeug = "*"
+passlib = "*"
+pyjwt = "*"
 
 [dev-packages]
 

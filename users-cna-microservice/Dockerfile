@@ -1,14 +1,19 @@
-# Install python in the container
-FROM python:3.10.5-alpine3.16
+FROM python:3.11-alpine
+
+# 필요한 패키지 설치
+RUN apk --no-cache add build-base libffi-dev openssl-dev
 RUN pip install pipenv
+
 WORKDIR /usr/src/app
-# Copy the Pipfile
-COPY Pipfile ./
-# install the packages from the requirements.txt file in the container
-RUN pipenv install
-# expose the port that uvicorn will run the app
-EXPOSE 9090
-# copy the local app/ folder to the /app fodler in the container
+
+# Copy the Pipfile and Pipfile.lock from the local directory to the WORKDIR
+COPY Pipfile* ./
+
+# Install dependencies inside the virtual environment
+RUN pipenv install --deploy --ignore-pipfile
+
+# copy the local app/ folder to the /app folder in the container
 COPY . .
+
 # execute the command python main.py (in the WORKDIR) to start the app
-CMD ["pipenv", "run", "python", "app.py"]
+CMD ["pipenv", "run", "uvicorn", "app:app", "--host", "0.0.0.0", "--port", "${APP_PORT}",  "--reload"]

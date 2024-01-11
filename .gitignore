@@ -1,2 +1,5 @@
 .vscode
 .DS_Store
+
+docker-compose.yml
+docker-compose.yaml

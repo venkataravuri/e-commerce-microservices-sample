@@ -1,6 +1,7 @@
-const { MongoClient } = require('mongodb');
-const connectionString = process.env.MONGO_URI;
-console.log(connectionString)
+const { MongoClient } = require("mongodb");
+
+const mongoUri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
+const connectionString = mongoUri;
 const database = process.env.DATABASE;
 const client = new MongoClient(connectionString, {
   useNewUrlParser: true,
@@ -17,7 +18,7 @@ module.exports = {
       }
 
       dbConnection = db.db(database);
-      console.log('Successfully connected to MongoDB.');
+      console.log("🔥🔥🔥 Successfully connected to MongoDB.");
 
       return callback();
     });

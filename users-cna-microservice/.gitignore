@@ -2,3 +2,6 @@
 /venv/
 /.vscode/
 /test.db
+
+.env
+# ecr push test2

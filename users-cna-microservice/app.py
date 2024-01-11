@@ -1,15 +1,32 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import sessionmaker
+from db.models.user import User, UserIn, UserOut
+from db.config import async_session, engine, Base
 import uvicorn
+from routers.user_router import router
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordBearer
 
-from db.config import engine, Base
-from routers import user_router
-from fastapi import Depends
-from db.config import async_session
-from db.models.user import User
+import os
 
+# create db session
+async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+
+# create FastAPI instance
 app = FastAPI()
-app.include_router(user_router.router)
+# import routers
+app.include_router(router)
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+# 환경 변수 사용
+app_host = os.getenv("APP_HOST")
+app_port = int(os.getenv("APP_PORT"))  # port는 정수
+app_reload = os.getenv("APP_RELOAD").lower() == 'true'  # reload는 불리언
+
+cors_origins = list(os.getenv("CORS_ORIGINS").split(','))
 
 @app.on_event("startup")
 async def startup():
@@ -17,16 +34,22 @@ async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)    
-    
-    async with async_session() as session:
-        async with session.begin():
-            session.add_all([
-                User(name = 'Peter', email = 'peter@exmaple.com', mobile='298479284'),
-                User(name = 'John', email = 'john@exmaple.com', mobile='998479284'),
-                User(name = 'Jason', email = 'jason@exmaple.com', mobile='928479285')]
-            )
-        await session.commit()
-        
+
+@app.on_event("shutdown")
+async def shutdown():
+    # close db connection
+    await engine.dispose()
+
+
+origins = cors_origins
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 if __name__ == '__main__':
-    uvicorn.run("app:app", port=9090, host='127.0.0.1', reload=True)
+    uvicorn.run("app:app", host=app_host, port=app_port, reload=app_reload)

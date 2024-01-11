@@ -1,5 +1,6 @@
 # Igrone .env for sensitive data
 .env
+.env.*
 
 # Package Files #
 *.jar
@@ -22,3 +23,9 @@
 
 # IDE Files
 .vscode
+
+# redis cache file
+dump.rdb
+
+# ecr push test for cart 1
+

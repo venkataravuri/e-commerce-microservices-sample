@@ -1,12 +1,12 @@
-import React from 'react'
-import AppBar from '../../AppBar/AppBar'
+import React from "react";
+import AppBar from "../../AppBar/AppBar";
 
 function Header() {
-    return (
-        <header>
-            <AppBar />
-        </header>
-    )
+  return (
+    <header>
+      <AppBar />
+    </header>
+  );
 }
 
-export default Header
+export default Header;
