@@ -177,11 +177,15 @@ export default function PrimarySearchAppBar() {
               alignItems: "center",
             }}
           >
-            <img src="logo.png" width="32" height="32" alt="logo" />
+            <img
+              src="/assets/images/etc/horizontal-logo.png"
+              height="40px"
+              alt="logo"
+            />
             <Typography
               sx={{ color: "white", fontWeight: "bold", fontSize: 20 }}
             >
-              &nbsp;새싹농장마켓
+              &nbsp;
             </Typography>
           </Link>
           <Box sx={{ flexGrow: 1 }} />
